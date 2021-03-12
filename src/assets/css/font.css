@@ -1,0 +1,107 @@
+/*
+  阿里矢量图标下载
+  @author rollin
+  @date 2021-02-08 09:13:21
+*/
+@font-face {
+    font-family: 'iconfont';
+    src: url('./icon/iconfont.eot');
+    src: url('./icon/iconfont.eot?#iefix') format('embedded-opentype'),
+        url('./icon/iconfont.woff2') format('woff2'),
+        url('./icon/iconfont.woff') format('woff'),
+        url('./icon/iconfont.ttf') format('truetype'),
+        url('./icon/iconfont.svg#iconfont') format('svg');
+  }
+
+  .iconfont {
+    font-family: "iconfont" !important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* tab 图标 */
+  .home:before {
+    content: "\e600";
+  }
+  .bill:before {
+    content: "\e616";
+  }
+  .report:before {
+    content: "\e601";
+  }
+  .user:before {
+    content: "\e66b";
+  }
+
+
+  /*  其它场景图标 */
+  .eye-close:before {
+    content: "\e66c";
+  }
+  .eye-open:before {
+    content: "\e66d";
+  }
+  .btn-edit:before {
+    content: "\e603";
+  }
+  .btn-right:before {
+    content: "\e604";
+  }
+  .btn-close:before {
+    content: "\e87f";
+  }
+  .btn-calendar:before {
+    content: "\e698";
+  }
+  .btn-huishan:before {
+    content: "\e74b";
+  }
+  .btn-renminbi:before {
+    content: "\e60a";
+  }
+  .btn-back:before {
+    content: "\e602";
+  }
+  .arrows-up:before {
+    content: "\e62c";
+  }
+  .arrows-down:before {
+    content: "\e60c";
+  }
+  .filter:before {
+    content: "\e64d";
+  }
+  .icon-selected-radio:before {
+    content: "\ee65";
+  }
+  .icon-unselected-radio:before {
+    content: "\eecd";
+  }
+  .icon-user:before {
+    content: '\e605';
+  }
+  .icon-password:before {
+    content: '\e606';
+  }
+
+
+  
+
+
+  /*  分类图标 */
+  .icon-fork:before {
+    content: "\e60d";
+  }
+
+
+  /*  加载图标  */
+.icon-load-loading:before {
+  content: "\e607";
+}
+  
+
+
+
+  
