@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "20415619",
+      "name": "育儿",
+      "font_class": "bianzu2",
+      "unicode": "e608",
+      "unicode_decimal": 58888
+    },
+    {
       "icon_id": "13915281",
       "name": "loading",
       "font_class": "dengdai",

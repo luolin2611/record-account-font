@@ -22,7 +22,10 @@
                     </div>
                 </div>
                 <!-- 显示插图 -->
-                <div style="height: 6rem; width: 8rem;" ref="echarts"></div>
+                <div style="width: 100%;box-shadow: -5px 5px 10px -4px #dfdfdf, 5px 5px 10px -4px #dfdfdf;">
+                    <!-- 显示插图 -->
+                    <div style="height: 6rem; width: 8rem; width: 100%;" ref="echarts"></div>
+                </div>
             </div>
         </div>
 
@@ -116,16 +119,15 @@
         flex-direction: column;
         align-items: center;
         margin-top: -1rem;
-        padding: 0 .3rem;
         padding-top: .2rem;
         width: 95%;
-        border: 1px solid #bfbfbf;
         background: #fff;
     }
 
     .expense-income-area {
         display: flex;
         width: 100%;
+        padding: 0 .3rem;
         justify-content: space-between;
         font-size: .4rem;
     }
@@ -133,13 +135,16 @@
     .expense-income-item div {
         display: flex;
     }
+
     .expense-income-item i {
         padding-right: .1rem;
     }
+
     .expense-income-item .text {
         padding-left: .3rem;
         margin-top: .1rem;
     }
+
     .content-area {
         padding-bottom: 1.6rem;
     }

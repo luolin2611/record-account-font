@@ -16,6 +16,7 @@
             <div style="width: 100%; background: #f8f8f8; height: 6px;margin-top: .5rem;"></div>
         </div>
 
+        <!-- 显示分类 -->
         <show-sort></show-sort>
         
         <div class="timeAndMark">
@@ -35,6 +36,9 @@
     */
     import MoneyKeyboard from '@/components/MoneyKeyboard.vue'
     import ShowSort from './ShowSort.vue'
+    import { mapGetters } from 'vuex'
+    import { postRequest } from '@/api/api'
+    import { Toast } from 'vant'
     export default {
         name: 'Record',
         components: {
@@ -46,11 +50,6 @@
                 selectSort: 'income', //选中的类别
                 money: '0',//输入的money
                 showNumKeyboard: true, //默认显示数字键盘
-                options1: {
-                    disabledDate (date) {
-                    return date && (date.valueOf() < Date.now() - 2592000000 || date.valueOf() > Date.now())
-                    }
-                },
             }
         },
         methods: {

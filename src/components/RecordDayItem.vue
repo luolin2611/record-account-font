@@ -4,13 +4,13 @@
             <p>{{dayItem.dateStr}}</p>
         </div>
         <div class="record-item" v-for="(item, index) in dayItem.dayRecordAccountObjects" :key="index">
-            <i class="iconfont icon-fork"></i>
+            <i class="iconfont icon-fork" :style="item.classifyType == 1 ? 'color: #4eab7f' : ''"></i>
             <div class="content">
                 <div>
                     <p style="font-size: .4rem;color: #2c3040;">{{item.classifyName}}</p>
                     <p>{{item.remark}}</p>
                 </div>
-                <p class="money">￥{{item.billMoney}}</p>
+                <p class="money" :style="item.classifyType == 1 ? 'color: #4eab7f' : ''">￥{{item.billMoney}}</p>
             </div>
         </div>
     </div>

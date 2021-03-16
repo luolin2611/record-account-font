@@ -1,6 +1,6 @@
 <template>
     <div class="main">
-        <bill-header :title="'账单'"></bill-header>
+        <bill-header :title="'账单'" @chileToParentSelectDate="selectDate"></bill-header>
 
         <!-- 1.图表区域 -->
         <div style="display: flex;justify-content: center;width: 100%;">
@@ -10,27 +10,43 @@
                         <i class="iconfont"
                             :class="selectExpenseIncome == 'expense' ? 'icon-selected-radio' : 'icon-unselected-radio'"
                             :style="selectExpenseIncome == 'expense' ? 'color:#ed7773' : ''"></i>
-                        <p>月支出</p>
-                        <p style="color: #ed7773; font-weight: 700;">￥4,016.70</p>
+                        <p>{{this.billType == '0' ? '年' : this.billType == '1' ? '月' : '总'}}支出</p>
+                        <p style="color: #ed7773; font-weight: 700;">￥{{expense}}</p>
                     </div>
                     <div @click="selectExpenseIncomeBtn('income')">
                         <i class="iconfont"
                             :class="selectExpenseIncome == 'income' ? 'icon-selected-radio' : 'icon-unselected-radio'"
                             :style="selectExpenseIncome == 'income' ? 'color:#4eab7f' : ''"></i>
-                        <p>月收入</p>
-                        <p style="color: #4eab7f; font-weight: 700;">￥16,700.00</p>
+                        <p>{{this.billType == '0' ? '年' : this.billType == '1' ? '月' : '总'}}收入</p>
+                        <p style="color: #4eab7f; font-weight: 700;">￥{{income}}</p>
                     </div>
                 </div>
-                <!-- 显示插图 -->
-                <bill-charts style="height: 6rem; width: 100%;" :list="list"></bill-charts>
-                <!-- <div style="height: 6rem; width: 8rem;" ref="echarts"></div> -->
+                <div style="width: 100%;box-shadow: -5px 5px 10px -4px #dfdfdf, 5px 5px 10px -4px #dfdfdf;">
+                    <!-- 显示插图 -->
+                    <bill-charts style="height: 6rem; width: 100%;" :list="list"></bill-charts>
+                </div>
             </div>
         </div>
 
+        <div class="bill-type-desc">
+            <p class="bill-type-title">{{this.billType == '0' ? '年度' : this.billType == '1' ? '月度' : ''}}账单明细</p>
+        </div>
+
         <!-- 显示内容区 -->
-        <div v-if="true" style="margin-top: .3rem; margin-left: .3rem;padding-bottom: 3rem;">
-            <record-day-item v-if="monthBillDetailList.length" v-for="(item, index) in monthBillDetailList" :key="index"
-                :dayItem="item"></record-day-item>
+        <div style="margin-top: .3rem; margin-left: .3rem;padding-bottom: 3rem;">
+            <template v-if="monthBillDetailList.length">
+                <record-day-item v-for="(item, index) in monthBillDetailList" :key="index" :dayItem="item">
+                </record-day-item>
+            </template>
+            <template v-else-if="yearBillDetailList.length">
+                <year-item v-for="(item, index) in yearBillDetailList" :key="index" :yearItem="item"></year-item>
+            </template>
+            <template v-else>
+                <div class="bill-no-data">
+                    <img src="@/assets/img/bill_no_data.png" />
+                    <p>每一笔账单，都是生活的点滴</p>
+                </div>
+            </template>
         </div>
 
 
@@ -46,32 +62,29 @@
     import BillCharts from './components/BillCharts.vue'
     import { mapGetters } from 'vuex'
     import { postRequest } from '@/api/api'
+    import YearItem from './components/YearItem.vue'
+    import { Toast } from 'vant'
     export default {
         name: 'Bill',
         components: {
             TabBar,
             BillHeader,
             RecordDayItem,
-            BillCharts
+            BillCharts,
+            YearItem,
         },
         data() {
             return {
                 echarts: null, // echarts实例
-                selectExpenseIncome: 'expense',
+                selectExpenseIncome: 'expense', //选择的是支出还是收入
                 monthBillDetailList: [], //如果是月账单是填充此参数
-                option: {
-                    xAxis: {
-                        type: 'category',
-                        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-                    },
-                    yAxis: {
-                        type: 'value'
-                    },
-                    series: [{
-                        data: [120, 200, 150, 80, 70, 110, 130],
-                        type: 'bar'
-                    }]
-                },
+                yearBillDetailList: [], //年度账单列表
+                billType: '1',// 传输后台的 查询账单类型 0-年,1-月,2-时间段
+                year: 0, //存放当前年
+                month: 0, //当前月
+                dateType: 'month', //用户选择的 账单类型  默认为月 （月、年、自定义）
+                expense: 0, //支出
+                income: 0, //收入
                 list: [
                     {
                         time: '20200201',
@@ -189,22 +202,50 @@
             }
         },
         methods: {
+            //选择收支按钮
             selectExpenseIncomeBtn(value) {
                 this.selectExpenseIncome = value;
             },
+
+            /**
+             * 获取当前系统时间
+             */
+            async querySysTime() {
+                let res = await postRequest({
+                    url: '/bill/querySysTime',
+                    param: {}
+                }) || null;
+                if (res) {
+                    if (res.code == '0000') {
+                        let body = res.body;
+                        this.year = body.year;
+                        this.month = body.month;
+                        this.day = body.day;
+                        // 获取到当前日期后，进行下一步获取账单信息
+                        this.billTopInfo();
+                    } else {
+                        Toast(res.msg);
+                    }
+                }
+            },
+
             /**
              * 获取账单首页顶部内容
              */
-            async billTopInfo(billType) {
+            async billTopInfo() {
                 let user = this.getUser || null;
                 if (user) {
+                    //请求前先清空数据
+                    this.yearBillDetailList = [];
+                    this.monthBillDetailList = [];
                     // 用户已经登录，查询首页信息
                     let res = await postRequest({
                         url: '/bill/queryBillInfo',
                         param: {
                             userId: user.userId,
-                            billType: billType || '1', //默认请求月
-                            month: '202103',
+                            billType: this.billType,
+                            year: this.year,
+                            month: this.year + '' + (this.month < 10 ? '0' + this.month : this.month), //eg: 202103
                             startPage: 1,
                             pageSize: 10
                         }
@@ -212,26 +253,43 @@
                     if (res) {
                         if (res.code == '0000') {
                             let body = res.body;
-                            let type = billType || '1';
+                            let type = this.billType;
+                            this.expense = body.expense;
+                            this.income = body.income;
                             if (type == '0') {
-
+                                //填充年账单
+                                this.yearBillDetailList = body.yearBillDetail.yearBillDetailObjectList || [];
                             }
                             if (type == '1') {
-                                this.monthBillDetailList = body.monthBillDetailList;
+                                //填充月账单
+                                this.monthBillDetailList = body.monthBillDetailList || [];
                             }
                             if (type == '2') {
-
+                                //填充自定义账单
                             }
-                            console.log(res.body);
                         } else {
                             Toast(res.msg);
                         }
                     }
                 }
-            }
+            },
+
+            /**
+             * 子组件返回的日期
+             */
+            selectDate(obj) {
+                if (obj.type == 'month') {
+                    // 选择的是月账单
+                    this.year = obj.year;
+                    this.month = obj.month;
+                    this.billType = '1';
+                    //时间变更了重新请求账单信息
+                    this.billTopInfo();
+                }
+            },
         },
         created() {
-            this.billTopInfo();
+            this.querySysTime();
         },
         computed: {
             ...mapGetters(['getUser'])
@@ -244,10 +302,8 @@
         flex-direction: column;
         align-items: center;
         margin-top: -1rem;
-        padding: 0 .3rem;
         padding-top: .2rem;
         width: 95%;
-        border: 1px solid #bfbfbf;
         background: #fff;
     }
 
@@ -256,6 +312,7 @@
         width: 100%;
         justify-content: space-between;
         font-size: .4rem;
+        padding: 0 .3rem;
     }
 
     .income-extends-area div {
@@ -266,5 +323,29 @@
     .income-extends-area div i {
         font-size: .4rem;
         padding-right: 2px;
+    }
+
+    .bill-type-desc {
+        display: flex;
+        font-size: .4rem;
+        margin-top: .3rem;
+        margin-left: .3rem;
+    }
+
+    .bill-no-data {
+        margin-right: .3rem;
+        margin-top: .5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .bill-no-data img {
+        width: 4rem;
+    }
+
+    .bill-no-data p {
+        margin-top: .5rem;
+        font-size: .35rem;
     }
 </style>

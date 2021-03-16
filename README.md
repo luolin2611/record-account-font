@@ -23,4 +23,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 https://github.com/surmon-china/vue-awesome-swiper
 
 ### 遇到问题
-在首页的时候，跳转到其它界面，首页父组件内容报错，因为先销毁子组件，再销毁父组件。
+1.在首页的时候，跳转到其它界面，首页父组件内容报错，因为先销毁子组件，再销毁父组件。
+
+2.处理精度问题：
+    res = (parseFloat(moneyArr[0]) * 10000 + parseFloat(moneyArr[1]) * 10000) / 10000;

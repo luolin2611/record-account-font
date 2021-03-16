@@ -35,7 +35,6 @@
     content: "\e66b";
   }
 
-
   /*  其它场景图标 */
   .eye-close:before {
     content: "\e66c";
@@ -94,7 +93,60 @@
   .icon-fork:before {
     content: "\e60d";
   }
-
+  .icon-edit:before {
+    content: "\e633";
+  }
+  .icon-money:before {
+    content: "\e66e";
+  }
+  .icon-list:before {
+    content: "\e66f";
+  }
+  .icon-contract:before {
+    content: "\e670";
+  }
+  .icon-construction:before {
+    content: "\e679";
+  }
+  .icon-borrow-expense:before {
+    content: "\e67a";
+  }
+  .icon-tea:before {
+    content: "\e67b";
+  }
+  .icon-borrow-expense-repay:before {
+    content: "\e67b";
+  }
+  .icon-evection:before {
+    content: "\e680";
+  }
+  .icon-train:before {
+    content: "\e682";
+  }
+  .icon-earnest-money:before {
+    content: "\e684";
+  }
+  .icon-submit-an-expense-account:before {
+    content: "\e686";
+  }
+  .icon-confirm-the-income:before {
+    content: "\e688";
+  }
+  .icon-budage:before {
+    content: "\e68b";
+  }
+  .icon-add-asset:before {
+    content: "\e68c";
+  }
+  .icon-asset-reform:before {
+    content: "\e68d";
+  }
+  .icon-guide:before {
+    content: "\e691";
+  }
+  .icon-setting:before {
+    content: "\e631";
+  }
 
   /*  加载图标  */
 .icon-load-loading:before {
