@@ -130,7 +130,13 @@
                         this.calculateMoeny();
                     }
                 }
-                //回复 “=” 为 “确定”
+                
+                if(!this.showEq){
+                    //如果为确定按钮，再次点击确定按钮时，隐藏键盘
+                    this.$emit('keyboardHideEvent', true);
+                }
+
+                //恢复 “=” 为 “确定”
                 this.showEq = false;
             },
             //格式化 money (去掉  xx. xx.0 xx.00 xx.x0)

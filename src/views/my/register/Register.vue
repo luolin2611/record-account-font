@@ -36,7 +36,7 @@
     </div>
 </template>
 <script>
-    import { postRequest } from '@/api/api';
+    import { register } from '@/api/api';
     import { Calendar, Cell } from 'vant';
     import { Toast, Dialog } from 'vant';
     export default {
@@ -59,33 +59,32 @@
             }
         },
         methods: {
-            async register() {
+            register() {
                 // 1.校验登录
                 if (!this.checkInputFiled()) {
                     return;
                 }
                 // 2.请求处理
-                const res = await postRequest({
-                    url: '/user/register',
-                    param: {
-                        "userName": this.userName,
-                        "mobile": this.mobile,
-                        "email": this.email,
-                        "realName": this.realName,
-                        "personalResume": this.personalResume,
-                        "password": this.password
+                register({
+                    "userName": this.userName,
+                    "mobile": this.mobile,
+                    "email": this.email,
+                    "realName": this.realName,
+                    "personalResume": this.personalResume,
+                    "password": this.password,
+                    "showLoading": true
+                }).then(res => {
+                    // 3.错误介绍
+                    if (res) {
+                        if (res.code == '0000') {
+                            //登录成功
+                            Toast('注册成功');
+                            this.$router.push('/login')
+                        } else {
+                            Toast(res.msg);
+                        }
                     }
-                })
-                // 3.错误介绍
-                if (res) {
-                    if (res.code == '0000') {
-                        //登录成功
-                        Toast('注册成功');
-                        this.$router.push('/login')
-                    } else {
-                        Toast(res.msg);
-                    }
-                }
+                });
             },
             /**
              * 检查输入框内容是否为空 

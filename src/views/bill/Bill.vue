@@ -61,7 +61,7 @@
     import RecordDayItem from '@/components/RecordDayItem.vue'
     import BillCharts from './components/BillCharts.vue'
     import { mapGetters } from 'vuex'
-    import { postRequest } from '@/api/api'
+    import { querySysTime, queryBillInfo } from '@/api/api'
     import YearItem from './components/YearItem.vue'
     import { Toast } from 'vant'
     export default {
@@ -210,67 +210,66 @@
             /**
              * 获取当前系统时间
              */
-            async querySysTime() {
-                let res = await postRequest({
-                    url: '/bill/querySysTime',
-                    param: {}
-                }) || null;
-                if (res) {
-                    if (res.code == '0000') {
-                        let body = res.body;
-                        this.year = body.year;
-                        this.month = body.month;
-                        this.day = body.day;
-                        // 获取到当前日期后，进行下一步获取账单信息
-                        this.billTopInfo();
-                    } else {
-                        Toast(res.msg);
+            querySysTime() {
+                querySysTime({
+                    getCache: false,
+                    setCache: false
+                }).then(res => {
+                    if (res) {
+                        if (res.code == '0000') {
+                            let body = res.body;
+                            this.year = body.year;
+                            this.month = body.month;
+                            this.day = body.day;
+                            // 获取到当前日期后，进行下一步获取账单信息
+                            this.billTopInfo();
+                        } else {
+                            Toast(res.msg);
+                        }
                     }
-                }
+                });
             },
 
             /**
              * 获取账单首页顶部内容
              */
-            async billTopInfo() {
+            billTopInfo() {
                 let user = this.getUser || null;
                 if (user) {
                     //请求前先清空数据
                     this.yearBillDetailList = [];
                     this.monthBillDetailList = [];
                     // 用户已经登录，查询首页信息
-                    let res = await postRequest({
-                        url: '/bill/queryBillInfo',
-                        param: {
-                            userId: user.userId,
-                            billType: this.billType,
-                            year: this.year,
-                            month: this.year + '' + (this.month < 10 ? '0' + this.month : this.month), //eg: 202103
-                            startPage: 1,
-                            pageSize: 10
+                    queryBillInfo({
+                        userId: user.userId,
+                        billType: this.billType,
+                        year: this.year,
+                        month: this.year + '' + (this.month < 10 ? '0' + this.month : this.month), //eg: 202103
+                        startPage: 1,
+                        pageSize: 10
+                    }).then(res => {
+                        if (res) {
+                            if (res.code == '0000') {
+                                let body = res.body;
+                                let type = this.billType;
+                                this.expense = body.expense;
+                                this.income = body.income;
+                                if (type == '0') {
+                                    //填充年账单
+                                    this.yearBillDetailList = body.yearBillDetail.yearBillDetailObjectList || [];
+                                }
+                                if (type == '1') {
+                                    //填充月账单
+                                    this.monthBillDetailList = body.monthBillDetailList || [];
+                                }
+                                if (type == '2') {
+                                    //填充自定义账单
+                                }
+                            } else {
+                                Toast(res.msg);
+                            }
                         }
-                    }) || null;
-                    if (res) {
-                        if (res.code == '0000') {
-                            let body = res.body;
-                            let type = this.billType;
-                            this.expense = body.expense;
-                            this.income = body.income;
-                            if (type == '0') {
-                                //填充年账单
-                                this.yearBillDetailList = body.yearBillDetail.yearBillDetailObjectList || [];
-                            }
-                            if (type == '1') {
-                                //填充月账单
-                                this.monthBillDetailList = body.monthBillDetailList || [];
-                            }
-                            if (type == '2') {
-                                //填充自定义账单
-                            }
-                        } else {
-                            Toast(res.msg);
-                        }
-                    }
+                    });
                 }
             },
 

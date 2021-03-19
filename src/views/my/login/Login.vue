@@ -31,7 +31,7 @@
     </div>
 </template>
 <script>
-    import { postRequest } from '@/api/api';
+    import { login } from '@/api/api';
     import { Toast, Dialog } from 'vant';
     import { mapMutations } from 'vuex'
 
@@ -47,34 +47,59 @@
             //set store方法放在methods方法
             ...mapMutations(['setUser']),
             // async await 没有监听异常，所以此处需要捕获异常的话可以使用try-catach
-            async login() {
+            login() {
+                // async login() {
                 // 1.校验登录
                 if (!this.checkInputFiled()) {
                     return;
                 }
-                try {
-                    // 2.请求处理
-                    const res = await postRequest({
-                        url: '/user/login',
-                        param: {
-                            "account": this.account,
-                            "password": this.password
-                        }
-                    });
-
-                    // 3.错误介绍
+                // 2.请求处理
+                login({
+                    account: this.account,
+                    password: this.password,
+                    showLoading: true
+                }).then(res => {
+                    //3.错误介绍
                     if (res) {
                         if (res.code == '0000') {
                             //登录成功
                             this.setUser(res.body);
+                            localStorage.setItem("updateObj", '{}');
+
+                            // let cc = {};
+
+                            // for (const key in object) {
+                            //     if (Object.hasOwnProperty.call(object, key)) {
+                            //         const element = object[key];
+                            //         bb[key] = false;
+                            //     }
+                            // };
+
+
+
                             this.$router.push('/my');
                         } else {
                             Toast(res.msg);
                         }
                     }
-                } catch (error) {
-                    Toast('服务器异常，请稍后再试');
-                }
+                });
+
+                // 2.请求处理
+                // const res = await login({
+                //     "account": this.account,
+                //     "password": this.password
+                // });
+
+                // //3.错误介绍
+                // if (res) {
+                //     if (res.code == '0000') {
+                //         //登录成功
+                //         this.setUser(res.body);
+                //         this.$router.push('/my');
+                //     } else {
+                //         Toast(res.msg);
+                //     }
+                // }
             },
 
             checkInputFiled() {

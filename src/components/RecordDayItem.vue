@@ -4,7 +4,7 @@
             <p>{{dayItem.dateStr}}</p>
         </div>
         <div class="record-item" v-for="(item, index) in dayItem.dayRecordAccountObjects" :key="index">
-            <i class="iconfont icon-fork" :style="item.classifyType == 1 ? 'color: #4eab7f' : ''"></i>
+            <i :class="'iconfont icon-'+item.icon.iconName" :style="item.classifyType == 1 ? 'color: #4eab7f' : ''"></i>
             <div class="content">
                 <div>
                     <p style="font-size: .4rem;color: #2c3040;">{{item.classifyName}}</p>
@@ -41,6 +41,7 @@
     .record-item i {
         color: #ed7c71;
         font-size: .8rem;
+        padding-bottom: .2rem;
     }
     .content {
         margin-right: .6rem;

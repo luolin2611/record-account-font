@@ -86,10 +86,113 @@
   }
 
 
-  
-
-
   /*  分类图标 */
+  /* 1.支出图标 */
+  .icon-canyin:before {
+    content: "\e610";
+  }
+  .icon-yanjiulingshi:before {
+    content: "\e614";
+  }
+  .icon-gouwu:before {
+    content: "\e612";
+  }
+  .icon-zhufang:before {
+    content: "\e615";
+  }
+  .icon-jiaotong:before {
+    content: "\e611";
+  }
+  .icon-yule:before {
+    content: "\e617";
+  }
+  .icon-wenjiao:before {
+    content: "\e613";
+  }
+  .icon-qiche:before {
+    content: "\e619";
+  }
+  .icon-tongxun:before {
+    content: "\e61a";
+  }
+  .icon-yuer:before {
+    content: "\e618";
+  }
+  .icon-renqing:before {
+    content: "\e61b";
+  }
+  .icon-yiliao:before {
+    content: "\e61c";
+  }
+  .icon-lvxing:before {
+    content: "\e61d";
+  }
+  .icon-touzi:before {
+    content: "\e61e";
+  }
+  .icon-touzikuisun:before {
+    content: "\e61f";
+  }
+  .icon-jiechu:before {
+    content: "\e636";
+  }
+  .icon-huanzhai:before {
+    content: "\e635";
+  }
+  .icon-lixizhichu:before {
+    content: "\e620";
+  }
+  .icon-qita:before {
+    content: "\e621";
+  }
+  .icon-shezhi-zhichu:before {
+    content: "\e622";
+  }
+
+  /* 2.收入图标 */
+  .icon-xinzi:before {
+    content: "\e623";
+  }
+  .icon-jiangjin:before {
+    content: "\e626";
+  }
+  .icon-jieru:before {
+    content: "\e627";
+  }
+  .icon-shouzhai:before {
+    content: "\e628";
+  }
+  .icon-lixishouru:before {
+    content: "\e62a";
+  }
+  .icon-touzihuishou:before {
+    content: "\e629";
+  }
+  .icon-touzishouyi:before {
+    content: "\e62e";
+  }
+  .icon-baoxiaoshouru:before {
+    content: "\e62d";
+  }
+  .icon-tuikuan:before {
+    content: "\e632";
+  }
+  .icon-yiwaisuode:before {
+    content: "\e62b";
+  }
+  .icon-qitashouru:before {
+    content: "\e630";
+  }
+  .icon-shezhi-shouru:before {
+    content: "\e622";
+  }
+
+
+
+
+
+
+  
   .icon-fork:before {
     content: "\e60d";
   }
@@ -147,6 +250,11 @@
   .icon-setting:before {
     content: "\e631";
   }
+
+
+
+
+
 
   /*  加载图标  */
 .icon-load-loading:before {

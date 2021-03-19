@@ -51,6 +51,7 @@
             logout() {
                 // 1.删除存储的用户信息
                 this.setUser(null);
+                localStorage.clear();
                 // 2.跳转到登录页面
                 this.$router.push('/login');
             },

@@ -11,6 +11,7 @@ let toast = null;
 
 /**
  * 添加请求拦截器
+ * 注意： config.data.showLoading 作为判断是否显示加载框， 默认不显示
  */
 axios.interceptors.request.use(function (config) {
   let user = store.state.user || null;
@@ -18,13 +19,20 @@ axios.interceptors.request.use(function (config) {
     //如果是登录了，就填充登录token
     config.headers.common.Authorization = user.jwtToken;
   }
-  toast = Toast.loading({
+
+  //是否显示加载框 （默认不显示）
+  config.data.showLoading && (toast = Toast.loading({
     duration: 0, // 持续展示 toast
     forbidClick: true,
     message: "加载中..."
-  });
+  }))
   // 在发送请求之前做些什么
   console.log('请求参数：', config.data);
+  config.data.check_request = {
+    timestamps: "20210223",
+    sign: "xxxxxxx"
+  }
+  config.data.body = { ...config.data }
   return config;
 }, function (error) {
   closeToast();

@@ -6,11 +6,235 @@
   "description": "",
   "glyphs": [
     {
-      "icon_id": "20415619",
+      "icon_id": "20429276",
+      "name": "还债1",
+      "font_class": "huanzhai1",
+      "unicode": "e637",
+      "unicode_decimal": 58935
+    },
+    {
+      "icon_id": "20429264",
+      "name": "借出1",
+      "font_class": "jiechu1",
+      "unicode": "e636",
+      "unicode_decimal": 58934
+    },
+    {
+      "icon_id": "20428187",
+      "name": "还债",
+      "font_class": "huanzhai",
+      "unicode": "e635",
+      "unicode_decimal": 58933
+    },
+    {
+      "icon_id": "20428185",
+      "name": "借出",
+      "font_class": "jiechu",
+      "unicode": "e634",
+      "unicode_decimal": 58932
+    },
+    {
+      "icon_id": "20426173",
+      "name": "退款",
+      "font_class": "tuikuan",
+      "unicode": "e632",
+      "unicode_decimal": 58930
+    },
+    {
+      "icon_id": "20426131",
+      "name": "其他收入",
+      "font_class": "qitashouru",
+      "unicode": "e630",
+      "unicode_decimal": 58928
+    },
+    {
+      "icon_id": "20426003",
+      "name": "投资收益",
+      "font_class": "touzishouyi",
+      "unicode": "e62e",
+      "unicode_decimal": 58926
+    },
+    {
+      "icon_id": "20425979",
+      "name": "报销收入",
+      "font_class": "baoxiaoshouru",
+      "unicode": "e62d",
+      "unicode_decimal": 58925
+    },
+    {
+      "icon_id": "20425967",
+      "name": "意外所得",
+      "font_class": "yiwaisuode",
+      "unicode": "e62b",
+      "unicode_decimal": 58923
+    },
+    {
+      "icon_id": "20425457",
+      "name": "利息收入",
+      "font_class": "lixishouru",
+      "unicode": "e62a",
+      "unicode_decimal": 58922
+    },
+    {
+      "icon_id": "20425452",
+      "name": "投资回收",
+      "font_class": "touzihuishou",
+      "unicode": "e629",
+      "unicode_decimal": 58921
+    },
+    {
+      "icon_id": "20425053",
+      "name": "收债",
+      "font_class": "shouzhai",
+      "unicode": "e628",
+      "unicode_decimal": 58920
+    },
+    {
+      "icon_id": "20424406",
+      "name": "借入",
+      "font_class": "jieru",
+      "unicode": "e627",
+      "unicode_decimal": 58919
+    },
+    {
+      "icon_id": "20424275",
+      "name": "奖金",
+      "font_class": "jiangjin",
+      "unicode": "e626",
+      "unicode_decimal": 58918
+    },
+    {
+      "icon_id": "20421835",
+      "name": "薪资",
+      "font_class": "xinzi",
+      "unicode": "e623",
+      "unicode_decimal": 58915
+    },
+    {
+      "icon_id": "20421352",
+      "name": "设置",
+      "font_class": "shezhi",
+      "unicode": "e622",
+      "unicode_decimal": 58914
+    },
+    {
+      "icon_id": "20421162",
+      "name": "其他",
+      "font_class": "qita",
+      "unicode": "e621",
+      "unicode_decimal": 58913
+    },
+    {
+      "icon_id": "20420999",
+      "name": "利息支出",
+      "font_class": "lixizhichu",
+      "unicode": "e620",
+      "unicode_decimal": 58912
+    },
+    {
+      "icon_id": "20420193",
+      "name": "投资亏损",
+      "font_class": "touzikuisun",
+      "unicode": "e61f",
+      "unicode_decimal": 58911
+    },
+    {
+      "icon_id": "20420157",
+      "name": "投资",
+      "font_class": "touzi",
+      "unicode": "e61e",
+      "unicode_decimal": 58910
+    },
+    {
+      "icon_id": "20419690",
+      "name": "旅行",
+      "font_class": "lvhang",
+      "unicode": "e61d",
+      "unicode_decimal": 58909
+    },
+    {
+      "icon_id": "20419546",
+      "name": "医疗",
+      "font_class": "yiliao",
+      "unicode": "e61c",
+      "unicode_decimal": 58908
+    },
+    {
+      "icon_id": "20419436",
+      "name": "人情",
+      "font_class": "renqing",
+      "unicode": "e61b",
+      "unicode_decimal": 58907
+    },
+    {
+      "icon_id": "20419237",
+      "name": "通讯",
+      "font_class": "tongxun",
+      "unicode": "e61a",
+      "unicode_decimal": 58906
+    },
+    {
+      "icon_id": "20419221",
+      "name": "汽车",
+      "font_class": "qiche",
+      "unicode": "e619",
+      "unicode_decimal": 58905
+    },
+    {
+      "icon_id": "20419207",
       "name": "育儿",
-      "font_class": "bianzu2",
-      "unicode": "e608",
-      "unicode_decimal": 58888
+      "font_class": "yuer",
+      "unicode": "e618",
+      "unicode_decimal": 58904
+    },
+    {
+      "icon_id": "20419203",
+      "name": "娱乐",
+      "font_class": "yule",
+      "unicode": "e617",
+      "unicode_decimal": 58903
+    },
+    {
+      "icon_id": "20418999",
+      "name": "住房",
+      "font_class": "zhufang",
+      "unicode": "e615",
+      "unicode_decimal": 58901
+    },
+    {
+      "icon_id": "20418997",
+      "name": "烟酒",
+      "font_class": "yanjiu",
+      "unicode": "e614",
+      "unicode_decimal": 58900
+    },
+    {
+      "icon_id": "20418995",
+      "name": "文教",
+      "font_class": "wenjiao",
+      "unicode": "e613",
+      "unicode_decimal": 58899
+    },
+    {
+      "icon_id": "20418987",
+      "name": "购物",
+      "font_class": "gouwu",
+      "unicode": "e612",
+      "unicode_decimal": 58898
+    },
+    {
+      "icon_id": "20418986",
+      "name": "交通",
+      "font_class": "jiaotong",
+      "unicode": "e611",
+      "unicode_decimal": 58897
+    },
+    {
+      "icon_id": "20418980",
+      "name": "餐饮",
+      "font_class": "canyin",
+      "unicode": "e610",
+      "unicode_decimal": 58896
     },
     {
       "icon_id": "13915281",

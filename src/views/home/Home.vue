@@ -31,7 +31,7 @@
     import TabBar from '@/components/TabBar.vue'
     import Record from './component/Record.vue'
     import { mapGetters } from 'vuex'
-    import { postRequest } from '@/api/api'
+    import { homeInitInfo } from '@/api/api'
     import { Toast } from 'vant'
 
     export default {
@@ -56,7 +56,10 @@
                 this.showModel = !this.showModel;
             },
             hideModel() {
+                // 1.关闭model
                 this.showModel = false;
+                // 2.重新请求更新数据
+                this.homeInitInfo();
             },
             showRecent() {
                 this.$router.push('/home/show-recent');
@@ -65,27 +68,25 @@
             /**
              * 获取首页的信息
              */
-            async homeInitInfo() {
+            homeInitInfo() {
                 let user = this.getUser || null;
                 if (user) {
                     // 用户已经登录，查询首页信息
-                    let res = await postRequest({
-                        url: '/home/homeInitInfo',
-                        param: {
-                            userId: user.userId
+                    homeInitInfo({
+                        userId: user.userId,
+                    }).then(res => {
+                        if (res) {
+                            if (res.code == '0000') {
+                                let body = res.body;
+                                this.monthInTotal = body.monthInTotal + "";
+                                this.monthOutTotal = body.monthOutTotal + "";
+                                this.recordDayItems = body.threedayRecordAccount;
+                                this.billNum = body.billNum;
+                            } else {
+                                Toast(res.msg);
+                            }
                         }
-                    }) || null;
-                    if (res) {
-                        if (res.code == '0000') {
-                            let body = res.body;
-                            this.monthInTotal = body.monthInTotal + "";
-                            this.monthOutTotal = body.monthOutTotal + "";
-                            this.recordDayItems = body.threedayRecordAccount;
-                            this.billNum = body.billNum;
-                        } else {
-                            Toast(res.msg);
-                        }
-                    }
+                    });
                 }
             }
 
