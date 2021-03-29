@@ -26,7 +26,7 @@
         <div class="other-btn">
             <p @click="() => {$router.push('/register')}">注册有钱</p>
             <span></span>
-            <p>忘记密码</p>
+            <p @click="showAlert('如果忘记密码，可以联系开发者重置密码，开发人员微信：luolin2611；该功能以后会完善。')">忘记密码</p>
         </div>
     </div>
 </template>
@@ -39,8 +39,8 @@
         name: 'Login',
         data() {
             return {
-                account: '',
-                password: ''
+                account: 'rollin',
+                password: 'luolin123'
             }
         },
         methods: {

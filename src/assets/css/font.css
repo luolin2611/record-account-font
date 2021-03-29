@@ -12,6 +12,15 @@
         url('./icon/iconfont.ttf') format('truetype'),
         url('./icon/iconfont.svg#iconfont') format('svg');
   }
+  /* @font-face {
+    font-family: 'iconfont';  
+    src: url('//at.alicdn.com/t/font_2365037_sl5pfxda6q9.eot');
+    src: url('//at.alicdn.com/t/font_2365037_sl5pfxda6q9.eot?#iefix') format('embedded-opentype'),
+    url('//at.alicdn.com/t/font_2365037_sl5pfxda6q9.woff2') format('woff2'),
+    url('//at.alicdn.com/t/font_2365037_sl5pfxda6q9.woff') format('woff'),
+    url('//at.alicdn.com/t/font_2365037_sl5pfxda6q9.ttf') format('truetype'),
+    url('//at.alicdn.com/t/font_2365037_sl5pfxda6q9.svg#iconfont') format('svg');
+  } */
 
   .iconfont {
     font-family: "iconfont" !important;

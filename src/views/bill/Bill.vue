@@ -213,7 +213,7 @@
             querySysTime() {
                 querySysTime({
                     getCache: false,
-                    setCache: false
+                    setCache: true
                 }).then(res => {
                     if (res) {
                         if (res.code == '0000') {
@@ -233,7 +233,7 @@
             /**
              * 获取账单首页顶部内容
              */
-            billTopInfo() {
+            billTopInfo(param) {
                 let user = this.getUser || null;
                 if (user) {
                     //请求前先清空数据
@@ -246,7 +246,8 @@
                         year: this.year,
                         month: this.year + '' + (this.month < 10 ? '0' + this.month : this.month), //eg: 202103
                         startPage: 1,
-                        pageSize: 10
+                        pageSize: 50,
+                        ...param
                     }).then(res => {
                         if (res) {
                             if (res.code == '0000') {
@@ -283,7 +284,10 @@
                     this.month = obj.month;
                     this.billType = '1';
                     //时间变更了重新请求账单信息
-                    this.billTopInfo();
+                    this.billTopInfo({
+                        getCache: false,
+                        setCache: true
+                    });
                 }
             },
         },

@@ -7,7 +7,7 @@ import './assets/css/reset.css'
 import './assets/css/font.css'
 
 //引入vConsole   安装  npm i vconsole
-import Vconsole from 'vconsole'
+// import Vconsole from 'vconsole'
 // const vConsole = new Vconsole()
 
 //使用Swiper

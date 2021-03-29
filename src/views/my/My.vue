@@ -21,6 +21,10 @@
                 <p>修改登录密码</p>
                 <i class="iconfont btn-right"></i>
             </div>
+            <div>
+                <p>Bug反馈</p>
+                <i class="iconfont btn-right"></i>
+            </div>
         </div>
 
         <div @click="logout()" class="logout-btn">

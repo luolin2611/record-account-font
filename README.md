@@ -44,3 +44,33 @@ https://github.com/surmon-china/vue-awesome-swiper
     2.2 当重新登录后需要重置该对象为{}
     2.3 当记账后成功后，还对象也会被重置。
     2.4 localStorageId除了为false的情况，其它情况均需要重新加载数据。
+
+
+### 打包说明
+    1.npm run build //打包生产包
+    2.npm run serve //测试运行
+
+### NGINX 配置说明
+#### 1.配置信息  C:\Users\Administrator\Desktop\nginx\nginx-1.12.2\conf\nginx.conf
+```
+    server {
+        listen       9002; # 配置端口
+        server_name  localhost; # 请求服务的名称
+
+        location / {
+            root   C:/Users/Administrator/Desktop/nginx/record-account; # 指定前端的根路径
+            index  index.html index.htm;
+        }
+		
+		location /record-account/ {
+			proxy_pass http://127.0.0.1:9008/;
+		}
+	}
+```
+#### 2.服务命令相关：
+```
+开启Nginx服务器：$ start nginx.exe
+停止Nginx服务器：$ nginx.exe -s stop
+查看服务状态：$ nginx.exe -t
+```
+

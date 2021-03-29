@@ -135,7 +135,7 @@
             querySysTime() {
                 querySysTime({
                     getCache: false,
-                    setCache: false
+                    setCache: true
                 }).then(res => {
                     if (res) {
                         if (res.code == '0000') {

@@ -1,5 +1,13 @@
 import axios from './request'
 
+
+
+//本地的时候放开
+let prefix = '';
+//发布的时候放开
+// let prefix = '/record-account';
+
+
 /*******  Home 页面  **** */
 /**
  * 用户已经登录，查询首页信息
@@ -7,21 +15,21 @@ import axios from './request'
  * @param {*} param 
  * @returns 
  */
-export const homeInitInfo = param => requestMethod('homeInitInfo', '/home/homeInitInfo', param);
+export const homeInitInfo = param => requestMethod('homeInitInfo', prefix + '/home/homeInitInfo', param);
 /**
  * 获取用户分类列表
  * 
  * @param {*} param 
  * @returns 
  */
-export const queryClassify = param => requestMethod('queryClassify', '/record/queryClassify', param);
+export const queryClassify = param => requestMethod('queryClassify', prefix + '/record/queryClassify', param);
 /**
  * 记账
  * 
  * @param {*} param 
  * @returns 
  */
-export const addRecordAcct = param => requestMethod('addRecordAcct', '/record/addRecordAcct', param);
+export const addRecordAcct = param => requestMethod('addRecordAcct', prefix + '/record/addRecordAcct', param);
 
 
 
@@ -40,14 +48,14 @@ export const addRecordAcct = param => requestMethod('addRecordAcct', '/record/ad
  * @param {*} param 
  * @returns 
  */
-export const querySysTime = param => requestMethod('querySysTime', '/bill/querySysTime', param);
+export const querySysTime = param => requestMethod('querySysTime', prefix + '/bill/querySysTime', param);
 /**
  *  获取账单首页顶部内容
  * 
  * @param {*} param 
  * @returns 
  */
-export const queryBillInfo = param => requestMethod('queryBillInfo', '/bill/queryBillInfo', param);
+export const queryBillInfo = param => requestMethod('queryBillInfo', prefix + '/bill/queryBillInfo', param);
 
 
 
@@ -62,12 +70,12 @@ export const queryBillInfo = param => requestMethod('queryBillInfo', '/bill/quer
  * 请求登录
  * @param {} param 
  */
-export const login = param => axios.post('/user/login', { ...param }).then(res => res);
+export const login = param => axios.post(prefix + '/user/login', { ...param }).then(res => res);
 /**
  * 注册
  * @param {} param 
  */
-export const register = param => axios.post('/user/register', { ...param }).then(res => res);
+export const register = param => axios.post(prefix + '/user/register', { ...param }).then(res => res);
 
 
 
@@ -101,16 +109,16 @@ const requestMethod = (methodName, url, param) => {
         const keys = Object.keys(updateObj);
         for (let key in keys) {
             if (keys[key] == localStorageId) {
-                if (!updateObj[keys[key]] || !window.navigator.onLine) {
-                    // 如果更新标志为false或者网络未连机    表示当前对象不需要，从缓存里面取并返回
+                if (!updateObj[keys[key]]) {
+                    // 表示不需要更新，直接返回缓存对象
                     returnLocalDataFlag = true;
                     break;
                 }
             }
         }
     }
-
-    if (returnLocalDataFlag) {
+    // 情况一、根据返回对象标志进行判断是否需要访问网络；情况二、网络未连接从缓存里面取并返回
+    if (returnLocalDataFlag || !window.navigator.onLine) {
         // 1.2 返回本地对象
         return new Promise((resolve, reject) => {
             cacheRes && resolve(cacheRes)
