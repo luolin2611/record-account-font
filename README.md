@@ -20,7 +20,10 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 
 ### 使用插件
+#### 1.使用轮播
 https://github.com/surmon-china/vue-awesome-swiper
+#### 2.时间格式对象
+moment -- 参考地址（https://www.jianshu.com/p/c26d6215b6c6）
 
 ### 遇到问题
 1.在首页的时候，跳转到其它界面，首页父组件内容报错，因为先销毁子组件，再销毁父组件。
@@ -33,7 +36,7 @@ https://github.com/surmon-china/vue-awesome-swiper
 
 
 ### 框架说明
-1.缓存数据策略： 请求数据时，会根据传入的三个参数（getCache，setCache，showLoading）进行判断相应的缓存策略；
+1.缓存数据策略： 请求数据时，会根据传入的三个参数（getCache，setCache，showLoading, localStorageId）进行判断相应的缓存策略；
     1.1 getCache 类型：boolean  说明：默认为true,从缓存中获取。
     1.2 setCache 类型：boolean  说明：默认为true,存储到缓存中。
     1.3 showLoading 类型：boolean  说明：默认为false,为true时显示加载框。

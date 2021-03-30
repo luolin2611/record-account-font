@@ -71,6 +71,7 @@
                 maxDate: new Date(),
                 serverDate: {},//存放系统时间
                 showSelectDate: '', //存放显示时间字符串  ‘今天’、‘3月18’
+                selectDateObj: new Date(),//选择时间对象
                 selectClassify: {},
             }
         },
@@ -114,6 +115,7 @@
              * 确定日期
              */
             confirmDate(date) {
+                this.selectDateObj = date;
                 if (date.getFullYear() == this.serverDate.year) {
                     if (
                         ((date.getMonth() + 1) == this.serverDate.month) &&
@@ -142,7 +144,8 @@
                             let body = res.body;
                             this.serverDate = body;
                             this.maxDate = new Date(body.date);
-                            this.minDate = new Date(body.date - 365 * 24 * 60 * 60 * 1000);
+                            //指定可以修改的时间为半年
+                            this.minDate = new Date(body.date - 365 / 2 * 24 * 60 * 60 * 1000);
                             this.showSelectDate = `今天`;
                         } else {
                             Toast(res.msg);
@@ -174,7 +177,8 @@
                     remark: this.remark,
                     getCache: false,
                     setCache: false,
-                    showLoading: true
+                    showLoading: true,
+                    recordTimeStr: this.$moment(this.selectDateObj).format('YYYYMMDDHHmmss')
                 }).then(res => {
                     if (res.code == '0000') {
                         //记账成功

@@ -11,6 +11,7 @@
     "babel-polyfill": "^6.26.0",
     "core-js": "^3.6.5",
     "echarts": "^5.0.2",
+    "moment": "^2.29.1",
     "swiper": "^6.4.15",
     "vant": "^2.12.6",
     "vconsole": "^3.4.0",

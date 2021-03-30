@@ -23,7 +23,8 @@
                 </div>
                 <div style="width: 100%;box-shadow: -5px 5px 10px -4px #dfdfdf, 5px 5px 10px -4px #dfdfdf;">
                     <!-- 显示插图 -->
-                    <bill-charts style="height: 6rem; width: 100%;" :list="list"></bill-charts>
+                    <bill-charts style="height: 6rem; width: 100%;" :list="echartsDataList"
+                        :selectExpenseIncome="selectExpenseIncome"></bill-charts>
                 </div>
             </div>
         </div>
@@ -61,7 +62,7 @@
     import RecordDayItem from '@/components/RecordDayItem.vue'
     import BillCharts from './components/BillCharts.vue'
     import { mapGetters } from 'vuex'
-    import { querySysTime, queryBillInfo } from '@/api/api'
+    import { querySysTime, queryBillInfo, queryMonthIncomeExpenseList } from '@/api/api'
     import YearItem from './components/YearItem.vue'
     import { Toast } from 'vant'
     export default {
@@ -85,130 +86,25 @@
                 dateType: 'month', //用户选择的 账单类型  默认为月 （月、年、自定义）
                 expense: 0, //支出
                 income: 0, //收入
-                list: [
-                    {
-                        time: '20200201',
-                        value: 4845
-                    },
-                    {
-                        time: '20200202',
-                        value: 544
-                    },
-                    {
-                        time: '20200203',
-                        value: 744
-                    },
-                    {
-                        time: '20200204',
-                        value: 54121
-                    },
-                    {
-                        time: '20200205',
-                        value: 66854
-                    },
-                    {
-                        time: '20200206',
-                        value: 949
-                    },
-                    {
-                        time: '20200207',
-                        value: 877
-                    },
-                    {
-                        time: '20200208',
-                        value: 454
-                    },
-                    {
-                        time: '20200209',
-                        value: 877
-                    },
-                    {
-                        time: '20200210',
-                        value: 544
-                    },
-                    {
-                        time: '20200211',
-                        value: 254
-                    },
-                    {
-                        time: '20200212',
-                        value: 144
-                    },
-                    {
-                        time: '20200213',
-                        value: 555
-                    },
-                    {
-                        time: '20200214',
-                        value: 451
-                    },
-                    {
-                        time: '20200215',
-                        value: 668
-                    },
-                    {
-                        time: '20200216',
-                        value: 564
-                    },
-                    {
-                        time: '20200217',
-                        value: 654
-                    },
-                    {
-                        time: '20200218',
-                        value: 35
-                    },
-                    {
-                        time: '20200219',
-                        value: 84
-                    },
-                    {
-                        time: '20200220',
-                        value: 23
-                    },
-                    {
-                        time: '20200221',
-                        value: 455
-                    },
-                    {
-                        time: '20200222',
-                        value: 668
-                    },
-                    {
-                        time: '20200223',
-                        value: 54
-                    },
-                    {
-                        time: '20200224',
-                        value: 545
-                    },
-                    {
-                        time: '20200225',
-                        value: 121
-                    },
-                    {
-                        time: '20200226',
-                        value: 0
-                    },
-                    {
-                        time: '20200227',
-                        value: 345
-                    },
-                    {
-                        time: '20200228',
-                        value: 45
-                    }
-                ]
+                echartsDataList: []
             }
         },
         methods: {
             //选择收支按钮
             selectExpenseIncomeBtn(value) {
+                if (this.selectExpenseIncome == value) {
+                    return;
+                }
                 this.selectExpenseIncome = value;
+                //选择不同的方式后需要更新当前请求的列表
+                this.queryMonthIncomeExpenseList({
+                    getCache: false,
+                    setCache: true
+                });
             },
 
             /**
-             * 获取当前系统时间
+             * 获取当前系统时间 -- 用来获取当前最新的年月日
              */
             querySysTime() {
                 querySysTime({
@@ -221,8 +117,10 @@
                             this.year = body.year;
                             this.month = body.month;
                             this.day = body.day;
+                            // 获取当前日期的月账单列表[{date,data}]
+                            this.queryMonthIncomeExpenseList();
                             // 获取到当前日期后，进行下一步获取账单信息
-                            this.billTopInfo();
+                            this.billInfoList();
                         } else {
                             Toast(res.msg);
                         }
@@ -231,9 +129,9 @@
             },
 
             /**
-             * 获取账单首页顶部内容
+             * 获取账单信息列表
              */
-            billTopInfo(param) {
+            billInfoList(param) {
                 let user = this.getUser || null;
                 if (user) {
                     //请求前先清空数据
@@ -284,12 +182,41 @@
                     this.month = obj.month;
                     this.billType = '1';
                     //时间变更了重新请求账单信息
-                    this.billTopInfo({
+                    this.queryMonthIncomeExpenseList({
+                        getCache: false,
+                        setCache: true
+                    });
+                    this.billInfoList({
                         getCache: false,
                         setCache: true
                     });
                 }
             },
+
+            /**
+             * 查询月收入月支出列表
+             */
+            queryMonthIncomeExpenseList(parmas) {
+                let user = this.getUser || null;
+                if (user) {
+                    queryMonthIncomeExpenseList({
+                        userId: user.userId,
+                        type: this.selectExpenseIncome == 'expense' ? '0' : '1',
+                        queryYearMonthTime: this.year + '' + (this.month < 10 ? '0' + this.month : this.month), //eg: 202103
+                        ...parmas
+                    }).then(res => {
+                        if (res) {
+                            if (res.code == '0000') {
+                                let body = res.body;
+                                this.echartsDataList = body.list;
+                            } else {
+                                Toast(res.msg);
+                            }
+                        }
+                    });
+                }
+            },
+
         },
         created() {
             this.querySysTime();

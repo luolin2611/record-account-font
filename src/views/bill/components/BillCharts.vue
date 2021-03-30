@@ -65,7 +65,12 @@
       position(pos, sers) {
         console.log(pos);
         console.log(sers);
-        return [pos[0] - 15, -15]
+        //如果是在末尾时需要向左边移动多一点
+        // eg: 3-24 / 3-5
+        let name = sers[0].name;
+        let day = parseInt(name.split('-')[1])*3 + 10;
+        let x = pos[0] - day;
+        return [x, -15]
       },
       formatter(sers) {
         const ser = (sers && sers[0]) || {}
@@ -81,10 +86,8 @@
       data: [],
       type: 'bar',
       itemStyle: {
-        color: 'rgba(232, 119, 125, 1)',
         borderRadius: [5, 5, 0, 0]
       },
-      barMinWidth: `${(1 / 31) * 100}%`,
       barCategoryGap: '60%'
     }]
   }
@@ -94,6 +97,10 @@
       list: {
         type: Array,
         default: () => ([])
+      },
+      selectExpenseIncome: {
+        type: String,
+        default: () => ("expense")
       }
     },
     watch: {
@@ -123,8 +130,14 @@
        * 设置echarts
        */
       setOptions() {
+        //设置横轴的数据 
         options.xAxis.data = this.list.map(l => (l.time && `${Number(l.time.replace(regx, '$2'))}-${Number(l.time.replace(regx, '$3'))}`) || '')
-        options.series[0].data = this.list.map(l => l.value)
+        //设置纵轴的数据
+        options.series[0].data = this.list.map(l => l.money)
+        //设置横轴的间隔宽度
+        options.series[0].barMinWidth = `${(1 / this.list.length) * 100}%`;
+        //设置颜色
+        options.series[0].itemStyle.color = this.selectExpenseIncome == 'expense' ? '#ed7773' : '#4eab7f';
         this.echarts && this.echarts.setOption(options)
       }
     },

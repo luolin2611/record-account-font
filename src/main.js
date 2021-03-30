@@ -5,6 +5,7 @@ import store from './store'
 import './assets/js/flexible'
 import './assets/css/reset.css'
 import './assets/css/font.css'
+import moment from 'moment'
 
 //引入vConsole   安装  npm i vconsole
 // import Vconsole from 'vconsole'
@@ -17,6 +18,7 @@ Vue.use(VueAwesomeSwiper, /* { default options with global component } */)
 
 
 Vue.config.productionTip = false
+Vue.prototype.$moment = moment;//赋值使用
 
 new Vue({
   router,

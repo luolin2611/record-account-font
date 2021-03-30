@@ -56,6 +56,13 @@ export const querySysTime = param => requestMethod('querySysTime', prefix + '/bi
  * @returns 
  */
 export const queryBillInfo = param => requestMethod('queryBillInfo', prefix + '/bill/queryBillInfo', param);
+/**
+ *  查询 月支出/月收入 列表
+ * 
+ * @param {*} param 
+ * @returns 
+ */
+export const queryMonthIncomeExpenseList = param => requestMethod('queryMonthIncomeExpenseList', prefix + '/bill/queryMonthIncomeExpenseList', param);
 
 
 
@@ -96,7 +103,7 @@ export const register = param => axios.post(prefix + '/user/register', { ...para
  * @returns 
  */
 const requestMethod = (methodName, url, param) => {
-    //如果localStorageId 为传入，则使用methodName为key
+    //如果localStorageId 未传入，则使用methodName为key
     let localStorageId = param.localStorageId || methodName;
     //返回本地标志
     let returnLocalDataFlag = false;

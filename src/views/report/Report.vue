@@ -38,9 +38,6 @@
             <statistics-item></statistics-item>
             <statistics-item></statistics-item>
             <statistics-item></statistics-item>
-            <statistics-item></statistics-item>
-            <statistics-item></statistics-item>
-            <statistics-item></statistics-item>
         </div>
 
         <tab-bar :selectIndex="2"></tab-bar>
