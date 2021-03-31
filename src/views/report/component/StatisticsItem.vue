@@ -1,17 +1,20 @@
 <template>
     <div class="statistics-container">
-        <i class="iconfont icon-fork"></i>
+        <i class="left-icon-style" :class="'iconfont icon-'+statistics.iconName"></i>
         <div class="content-area">
             <div class="progress-bar">
-                <p>过年消费 54%</p>
+                <p>{{statistics.classifyName}} {{(parseFloat(statistics.proportion) * 100).toFixed(0)}}%</p>
                 <div class="progress-box">
-                    <div class="progress-box1"></div>
-                    <div class="progress-box2"></div>
+                    <div class="progress-box1"
+                        :style="'flex: ' + (parseFloat(statistics.proportion) * 100).toFixed(0) + ';background: ' + statColor">
+                    </div>
+                    <div class="progress-box2"
+                        :style="'flex: calc(100 - ' + (parseFloat(statistics.proportion) * 100).toFixed(0) + ')'"></div>
                 </div>
             </div>
             <div class="bill-content">
-                <p class="money">￥2,172.60</p>
-                <p class="per">16笔</p>
+                <p class="money">￥{{statistics.money}}</p>
+                <p class="per">{{statistics.recordCount}} 笔</p>
             </div>
             <i class="iconfont btn-right"></i>
         </div>
@@ -19,7 +22,22 @@
 </template>
 <script>
     export default {
-        name: 'StatisticsItem'
+        name: 'StatisticsItem',
+        props: {
+            statistics: {
+                type: Object,
+                default: () => ({})
+            },
+            statColor: {
+                type: String,
+                default: () => '#F9891E'
+            }
+        },
+        data() {
+            return {
+
+            };
+        },
     }
 </script>
 <style scoped>
@@ -30,7 +48,7 @@
         margin-top: .4rem;
     }
 
-    .statistics-container .icon-fork {
+    .statistics-container .left-icon-style {
         font-size: .8rem;
         padding-right: .2rem;
         color: #ed7c71;
@@ -63,6 +81,7 @@
         border-top-left-radius: 2em;
         border-bottom-left-radius: 2em;
     }
+
     .progress-box2 {
         flex: calc(100% - 64%);
         background: #f4f4f4;

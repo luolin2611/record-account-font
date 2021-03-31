@@ -57,7 +57,6 @@
 </template>
 <script>
     import TabBar from '@/components/TabBar.vue'
-    import * as echarts from 'echarts'
     import BillHeader from '@/components/Header.vue'
     import RecordDayItem from '@/components/RecordDayItem.vue'
     import BillCharts from './components/BillCharts.vue'
@@ -76,7 +75,6 @@
         },
         data() {
             return {
-                echarts: null, // echarts实例
                 selectExpenseIncome: 'expense', //选择的是支出还是收入
                 monthBillDetailList: [], //如果是月账单是填充此参数
                 yearBillDetailList: [], //年度账单列表

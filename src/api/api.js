@@ -72,6 +72,24 @@ export const queryMonthIncomeExpenseList = param => requestMethod('queryMonthInc
 
 
 
+
+/********  report 页面  ****** */
+/**
+ *  获取报表信息
+ * 
+ * @param {*} param 
+ * @returns 
+ */
+ export const queryReportInfo = param => requestMethod('queryReportInfo', prefix + '/report/queryReportInfo', param);
+
+
+
+
+
+
+
+
+
 /********  用户相关 页面  ****** */
 /**
  * 请求登录

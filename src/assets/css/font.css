@@ -4,15 +4,16 @@
   @date 2021-02-08 09:13:21
 */
 @font-face {
-    font-family: 'iconfont';
-    src: url('./icon/iconfont.eot');
-    src: url('./icon/iconfont.eot?#iefix') format('embedded-opentype'),
-        url('./icon/iconfont.woff2') format('woff2'),
-        url('./icon/iconfont.woff') format('woff'),
-        url('./icon/iconfont.ttf') format('truetype'),
-        url('./icon/iconfont.svg#iconfont') format('svg');
-  }
-  /* @font-face {
+  font-family: 'iconfont';
+  src: url('./icon/iconfont.eot');
+  src: url('./icon/iconfont.eot?#iefix') format('embedded-opentype'),
+    url('./icon/iconfont.woff2') format('woff2'),
+    url('./icon/iconfont.woff') format('woff'),
+    url('./icon/iconfont.ttf') format('truetype'),
+    url('./icon/iconfont.svg#iconfont') format('svg');
+}
+
+/* @font-face {
     font-family: 'iconfont';  
     src: url('//at.alicdn.com/t/font_2365037_sl5pfxda6q9.eot');
     src: url('//at.alicdn.com/t/font_2365037_sl5pfxda6q9.eot?#iefix') format('embedded-opentype'),
@@ -22,255 +23,316 @@
     url('//at.alicdn.com/t/font_2365037_sl5pfxda6q9.svg#iconfont') format('svg');
   } */
 
-  .iconfont {
-    font-family: "iconfont" !important;
-    font-size: 16px;
-    font-style: normal;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
-  /* tab 图标 */
-  .home:before {
-    content: "\e600";
-  }
-  .bill:before {
-    content: "\e616";
-  }
-  .report:before {
-    content: "\e601";
-  }
-  .user:before {
-    content: "\e66b";
-  }
+/* tab 图标 */
+.home:before {
+  content: "\e600";
+}
 
-  /*  其它场景图标 */
-  .eye-close:before {
-    content: "\e66c";
-  }
-  .eye-open:before {
-    content: "\e66d";
-  }
-  .btn-edit:before {
-    content: "\e603";
-  }
-  .btn-right:before {
-    content: "\e604";
-  }
-  .btn-close:before {
-    content: "\e87f";
-  }
-  .btn-calendar:before {
-    content: "\e698";
-  }
-  .btn-huishan:before {
-    content: "\e74b";
-  }
-  .btn-renminbi:before {
-    content: "\e60a";
-  }
-  .btn-back:before {
-    content: "\e602";
-  }
-  .arrows-up:before {
-    content: "\e62c";
-  }
-  .arrows-down:before {
-    content: "\e60c";
-  }
-  .filter:before {
-    content: "\e64d";
-  }
-  .icon-selected-radio:before {
-    content: "\ee65";
-  }
-  .icon-unselected-radio:before {
-    content: "\eecd";
-  }
-  .icon-user:before {
-    content: '\e605';
-  }
-  .icon-password:before {
-    content: '\e606';
-  }
+.bill:before {
+  content: "\e616";
+}
 
+.report:before {
+  content: "\e601";
+}
 
-  /*  分类图标 */
-  /* 1.支出图标 */
-  .icon-canyin:before {
-    content: "\e610";
-  }
-  .icon-yanjiulingshi:before {
-    content: "\e614";
-  }
-  .icon-gouwu:before {
-    content: "\e612";
-  }
-  .icon-zhufang:before {
-    content: "\e615";
-  }
-  .icon-jiaotong:before {
-    content: "\e611";
-  }
-  .icon-yule:before {
-    content: "\e617";
-  }
-  .icon-wenjiao:before {
-    content: "\e613";
-  }
-  .icon-qiche:before {
-    content: "\e619";
-  }
-  .icon-tongxun:before {
-    content: "\e61a";
-  }
-  .icon-yuer:before {
-    content: "\e618";
-  }
-  .icon-renqing:before {
-    content: "\e61b";
-  }
-  .icon-yiliao:before {
-    content: "\e61c";
-  }
-  .icon-lvxing:before {
-    content: "\e61d";
-  }
-  .icon-touzi:before {
-    content: "\e61e";
-  }
-  .icon-touzikuisun:before {
-    content: "\e61f";
-  }
-  .icon-jiechu:before {
-    content: "\e636";
-  }
-  .icon-huanzhai:before {
-    content: "\e635";
-  }
-  .icon-lixizhichu:before {
-    content: "\e620";
-  }
-  .icon-qita:before {
-    content: "\e621";
-  }
-  .icon-shezhi-zhichu:before {
-    content: "\e622";
-  }
+.user:before {
+  content: "\e66b";
+}
 
-  /* 2.收入图标 */
-  .icon-xinzi:before {
-    content: "\e623";
-  }
-  .icon-jiangjin:before {
-    content: "\e626";
-  }
-  .icon-jieru:before {
-    content: "\e627";
-  }
-  .icon-shouzhai:before {
-    content: "\e628";
-  }
-  .icon-lixishouru:before {
-    content: "\e62a";
-  }
-  .icon-touzihuishou:before {
-    content: "\e629";
-  }
-  .icon-touzishouyi:before {
-    content: "\e62e";
-  }
-  .icon-baoxiaoshouru:before {
-    content: "\e62d";
-  }
-  .icon-tuikuan:before {
-    content: "\e632";
-  }
-  .icon-yiwaisuode:before {
-    content: "\e62b";
-  }
-  .icon-qitashouru:before {
-    content: "\e630";
-  }
-  .icon-shezhi-shouru:before {
-    content: "\e622";
-  }
+/*  其它场景图标 */
+.eye-close:before {
+  content: "\e66c";
+}
+
+.eye-open:before {
+  content: "\e66d";
+}
+
+.btn-edit:before {
+  content: "\e603";
+}
+
+.btn-right:before {
+  content: "\e604";
+}
+
+.btn-close:before {
+  content: "\e87f";
+}
+
+.btn-calendar:before {
+  content: "\e698";
+}
+
+.btn-huishan:before {
+  content: "\e74b";
+}
+
+.btn-renminbi:before {
+  content: "\e60a";
+}
+
+.btn-back:before {
+  content: "\e602";
+}
+
+.arrows-up:before {
+  content: "\e62c";
+}
+
+.arrows-down:before {
+  content: "\e60c";
+}
+
+.filter:before {
+  content: "\e64d";
+}
+
+.icon-selected-radio:before {
+  content: "\ee65";
+}
+
+.icon-unselected-radio:before {
+  content: "\eecd";
+}
+
+.icon-user:before {
+  content: '\e605';
+}
+
+.icon-password:before {
+  content: '\e606';
+}
 
 
+/*  分类图标 */
+/* 1.支出图标 */
+.icon-canyin:before {
+  content: "\e610";
+}
 
+.icon-yanjiulingshi:before {
+  content: "\e614";
+}
 
+.icon-gouwu:before {
+  content: "\e612";
+}
 
+.icon-zhufang:before {
+  content: "\e615";
+}
 
-  
-  .icon-fork:before {
-    content: "\e60d";
-  }
-  .icon-edit:before {
-    content: "\e633";
-  }
-  .icon-money:before {
-    content: "\e66e";
-  }
-  .icon-list:before {
-    content: "\e66f";
-  }
-  .icon-contract:before {
-    content: "\e670";
-  }
-  .icon-construction:before {
-    content: "\e679";
-  }
-  .icon-borrow-expense:before {
-    content: "\e67a";
-  }
-  .icon-tea:before {
-    content: "\e67b";
-  }
-  .icon-borrow-expense-repay:before {
-    content: "\e67b";
-  }
-  .icon-evection:before {
-    content: "\e680";
-  }
-  .icon-train:before {
-    content: "\e682";
-  }
-  .icon-earnest-money:before {
-    content: "\e684";
-  }
-  .icon-submit-an-expense-account:before {
-    content: "\e686";
-  }
-  .icon-confirm-the-income:before {
-    content: "\e688";
-  }
-  .icon-budage:before {
-    content: "\e68b";
-  }
-  .icon-add-asset:before {
-    content: "\e68c";
-  }
-  .icon-asset-reform:before {
-    content: "\e68d";
-  }
-  .icon-guide:before {
-    content: "\e691";
-  }
-  .icon-setting:before {
-    content: "\e631";
-  }
+.icon-jiaotong:before {
+  content: "\e611";
+}
+
+.icon-yule:before {
+  content: "\e617";
+}
+
+.icon-wenjiao:before {
+  content: "\e613";
+}
+
+.icon-qiche:before {
+  content: "\e619";
+}
+
+.icon-tongxun:before {
+  content: "\e61a";
+}
+
+.icon-yuer:before {
+  content: "\e618";
+}
+
+.icon-renqing:before {
+  content: "\e61b";
+}
+
+.icon-yiliao:before {
+  content: "\e61c";
+}
+
+.icon-lvxing:before {
+  content: "\e61d";
+}
+
+.icon-touzi:before {
+  content: "\e61e";
+}
+
+.icon-touzikuisun:before {
+  content: "\e61f";
+}
+
+.icon-jiechu:before {
+  content: "\e636";
+}
+
+.icon-huanzhai:before {
+  content: "\e635";
+}
+
+.icon-lixizhichu:before {
+  content: "\e620";
+}
+
+.icon-qita:before {
+  content: "\e621";
+}
+
+.icon-shezhi-zhichu:before {
+  content: "\e622";
+}
+
+/* 2.收入图标 */
+.icon-xinzi:before {
+  content: "\e623";
+}
+
+.icon-jiangjin:before {
+  content: "\e626";
+}
+
+.icon-jieru:before {
+  content: "\e627";
+}
+
+.icon-shouzhai:before {
+  content: "\e628";
+}
+
+.icon-lixishouru:before {
+  content: "\e62a";
+}
+
+.icon-touzihuishou:before {
+  content: "\e629";
+}
+
+.icon-touzishouyi:before {
+  content: "\e62e";
+}
+
+.icon-baoxiaoshouru:before {
+  content: "\e62d";
+}
+
+.icon-tuikuan:before {
+  content: "\e632";
+}
+
+.icon-yiwaisuode:before {
+  content: "\e62b";
+}
+
+.icon-qitashouru:before {
+  content: "\e630";
+}
+
+.icon-shezhi-shouru:before {
+  content: "\e622";
+}
 
 
 
 
 
 
-  /*  加载图标  */
+
+.icon-fork:before {
+  content: "\e60d";
+}
+
+.icon-edit:before {
+  content: "\e633";
+}
+
+.icon-money:before {
+  content: "\e66e";
+}
+
+.icon-list:before {
+  content: "\e66f";
+}
+
+.icon-contract:before {
+  content: "\e670";
+}
+
+.icon-construction:before {
+  content: "\e679";
+}
+
+.icon-borrow-expense:before {
+  content: "\e67a";
+}
+
+.icon-tea:before {
+  content: "\e67b";
+}
+
+.icon-borrow-expense-repay:before {
+  content: "\e67b";
+}
+
+.icon-evection:before {
+  content: "\e680";
+}
+
+.icon-train:before {
+  content: "\e682";
+}
+
+.icon-earnest-money:before {
+  content: "\e684";
+}
+
+.icon-submit-an-expense-account:before {
+  content: "\e686";
+}
+
+.icon-confirm-the-income:before {
+  content: "\e688";
+}
+
+.icon-budage:before {
+  content: "\e68b";
+}
+
+.icon-add-asset:before {
+  content: "\e68c";
+}
+
+.icon-asset-reform:before {
+  content: "\e68d";
+}
+
+.icon-guide:before {
+  content: "\e691";
+}
+
+.icon-setting:before {
+  content: "\e631";
+}
+
+
+
+
+
+
+/*  加载图标  */
 .icon-load-loading:before {
   content: "\e607";
 }
-  
-
-
-
-  
