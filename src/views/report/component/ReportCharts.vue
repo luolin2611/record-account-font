@@ -8,7 +8,9 @@
 </template>
 <script>
     import * as Echarts from 'echarts'
-    let color = ["#F9891E", "#E74E00", "#FFEC07 ", "#FFC30D"]
+    let expenseColor = ["#F9891E", "#E74E00", "#FFEC07 ", "#FFC30D"]
+    let incomeColor = ["#4DBC20", "#179800", "#E0EF15 ", "#9AD52C"]
+
     // echarts配置
     let options = {
         tooltip: {
@@ -18,7 +20,6 @@
             {
                 name: '报表信息',
                 type: 'pie',
-                color: color,
                 radius: ['30%', '45%'],
                 avoidLabelOverlap: false,
                 emphasis: {
@@ -86,7 +87,20 @@
              * 设置echarts
              */
             setOptions() {
-                options.series[0].data = this.list.map(item => ({ name: item.classifyName, value: (parseFloat(item.proportion) * 100).toFixed(0) }));
+                //设置数据 - 根据是否有数据进行重新渲染
+                if(this.list.length) {
+                    options.series[0].data = this.list.map(item => ({ name: item.classifyName, value: (parseFloat(item.proportion) * 100).toFixed(0) }));
+                } else {
+                    options.series[0].data = [{name: '暂无数据', value: 100}]
+                }
+                //设置颜色 - 根据用户选择的支出还是收入进行改变图表颜色
+                if(this.selectExpenseIncome == 'expense') {
+                    options.series[0].color = expenseColor;
+                    options.series[0].labelLine.lineStyle.color = '#F48B13';
+                } else {
+                    options.series[0].color = incomeColor;
+                    options.series[0].labelLine.lineStyle.color = '#4eab7f';
+                }
                 this.echarts && this.echarts.setOption(options)
             }
         },

@@ -121,6 +121,18 @@ export const register = param => axios.post(prefix + '/user/register', { ...para
  * @returns 
  */
 const requestMethod = (methodName, url, param) => {
+    /******************************************************** */
+    /***********************  注意的地方 ********************** */
+    //时间 2021-04-01 16:17:12 暂时废弃缓存机制，因为存在许多bug
+    param.setCache = false;
+    param.getCache = false;
+    param.showLoading = true;
+    /******************************************************** */
+    /******************************************************** */
+
+
+
+
     //如果localStorageId 未传入，则使用methodName为key
     let localStorageId = param.localStorageId || methodName;
     //返回本地标志

@@ -1,6 +1,6 @@
 <template>
     <div class="statistics-container">
-        <i class="left-icon-style" :class="'iconfont icon-'+statistics.iconName"></i>
+        <i class="left-icon-style" :class="'iconfont icon-'+statistics.iconName" :style="selectExpenseIncome == 'expense' ? '' : 'color: #4eab7f'"></i>
         <div class="content-area">
             <div class="progress-bar">
                 <p>{{statistics.classifyName}} {{(parseFloat(statistics.proportion) * 100).toFixed(0)}}%</p>
@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="bill-content">
-                <p class="money">￥{{statistics.money}}</p>
+                <p class="money" :style="selectExpenseIncome == 'expense' ? '' : 'color: #4eab7f'">￥{{statistics.money}}</p>
                 <p class="per">{{statistics.recordCount}} 笔</p>
             </div>
             <i class="iconfont btn-right"></i>
@@ -31,6 +31,10 @@
             statColor: {
                 type: String,
                 default: () => '#F9891E'
+            },
+            selectExpenseIncome: {
+                type: String,
+                default: () => ("expense")
             }
         },
         data() {

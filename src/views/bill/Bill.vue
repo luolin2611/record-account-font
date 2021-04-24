@@ -1,6 +1,6 @@
 <template>
     <div class="main">
-        <bill-header :title="'账单'" @chileToParentSelectDate="selectDate"></bill-header>
+        <bill-header :title="'账单'" @chileToParentSelectDate="selectDate" :serveDate="serveDate"></bill-header>
 
         <!-- 1.图表区域 -->
         <div style="display: flex;justify-content: center;width: 100%;">
@@ -84,7 +84,8 @@
                 dateType: 'month', //用户选择的 账单类型  默认为月 （月、年、自定义）
                 expense: 0, //支出
                 income: 0, //收入
-                echartsDataList: []
+                echartsDataList: [],
+                serveDate: {}
             }
         },
         methods: {
@@ -115,6 +116,7 @@
                             this.year = body.year;
                             this.month = body.month;
                             this.day = body.day;
+                            this.serveDate = { ...body }
                             // 获取当前日期的月账单列表[{date,data}]
                             this.queryMonthIncomeExpenseList();
                             // 获取到当前日期后，进行下一步获取账单信息
@@ -174,11 +176,25 @@
              * 子组件返回的日期
              */
             selectDate(obj) {
+                // 选择的是月账单
                 if (obj.type == 'month') {
-                    // 选择的是月账单
                     this.year = obj.year;
                     this.month = obj.month;
                     this.billType = '1';
+                    //时间变更了重新请求账单信息
+                    this.queryMonthIncomeExpenseList({
+                        getCache: false,
+                        setCache: true
+                    });
+                    this.billInfoList({
+                        getCache: false,
+                        setCache: true
+                    });
+                }
+                // 选择的是年账单
+                if (obj.type == 'year') {
+                    this.year = obj.year;
+                    this.reportType = '0';
                     //时间变更了重新请求账单信息
                     this.queryMonthIncomeExpenseList({
                         getCache: false,

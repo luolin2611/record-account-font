@@ -7,11 +7,15 @@
         <!-- 1.选择条件 -->
         <div class="conditions">
             <!-- 左侧时间选择 -->
-            <div class="time">
-                <p class="year" @click="showTimePicker">2021年</p>
+            <div class="time" v-if="selectSortBtn == 0" @click="showTimePicker">
+                <p class="year">2021年</p>
                 <i class="iconfont arrows-down"></i>
                 <div class="split-line"></div>
                 <p>{{currentMonth}} 月</p>
+            </div>
+            <div class="time" v-if="selectSortBtn == 1" @click="showTimePicker">
+                <p>{{currentYear}}年</p>
+                <i class="iconfont arrows-down"></i>
             </div>
             <!-- 右侧筛选按钮 -->
             <div class="screening">
@@ -32,13 +36,27 @@
             </div>
             <div class="show-date-area">
                 <i class="iconfont btn-back"></i>
-                <div class="month-day">
-                    <div v-for="(item, index) in dataArr" :key="index" @click="selectDateBtn(item)">
-                        <p :style="(dateObj.month >= item && item != currentMonth) ? 'color: #000' : ''"
-                            :class="item == currentMonth ? 'month-day-p-seleced' : ''">
-                            {{item}}
-                        </p>
-                    </div>
+                <div class="date-list-area">
+                    <!-- 显示月账单选项 -->
+                    <template v-if="selectSortBtn == '0'">
+                        <div class="month-area" v-for="(item, index) in dataArr" :key="index"
+                            @click="selectDateBtn(item, 'month')">
+                            <p :style="(serveDate.month >= item && item != currentMonth) ? 'color: #000' : ''"
+                                :class="item == currentMonth ? 'month-day-p-seleced' : ''">
+                                {{item}}
+                            </p>
+                        </div>
+                    </template>
+                    <!-- 显示年账单选项 -->
+                    <template v-if="selectSortBtn == '1'">
+                        <div class="year-area" v-for="(item, index) in dataArr" :key="index"
+                            @click="selectDateBtn(item, 'year')"
+                            :style="item == currentYear ? 'background: #2f2f5b;color: #fff; border-radius: .2rem;':''">
+                            <p>
+                                {{item}}
+                            </p>
+                        </div>
+                    </template>
                 </div>
                 <i class="iconfont btn-right"></i>
             </div>
@@ -52,16 +70,12 @@
         name: 'BillHeader',
         props: {
             title: {
-                typs: String,
+                type: String,
                 default: '标题'
             },
-            dateObj: {
-                typs: Object,
-                default: () => ({
-                    year: 2021,
-                    month: 3,
-                    day: 14
-                })
+            serveDate: {
+                type: Object,
+                default: () => ({})
             }
         },
         data() {
@@ -69,29 +83,71 @@
                 isShowTimePicker: false,
                 selectSortBtn: 0,//选中的button 0-月账单,1-年账单,2-自定义
                 monthArr: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],//十二个月数字
-                yearArr: [2018, 2019, 2020, 2021],
-                currentMonth: this.dateObj.month,//当前选中的月份
-                monthSelectYear: 2021, //当前选中月份所在的年份当中
+                yearArr: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021],
+                currentMonth: 0,//当前选中的月份
+                monthSelectYear: 0, //当前选中月份所在的年份当中
+                currentYear: 0, //用户选择的当前年
             }
         },
         methods: {
             showTimePicker() {
                 this.isShowTimePicker = !this.isShowTimePicker;
             },
+            //选择顶部类型的菜单按钮：月账单 年账单 自定义
             sortBtn(value) {
+                if (this.selectSortBtn == value) {
+                    return;
+                }
                 this.selectSortBtn = value;
-            },
-            selectDateBtn(value) {
-                if (value <= this.dateObj.month) {
-                    if(this.currentMonth == value) {
-                        //点击当前选择的月份，使其失效
-                        return;
-                    }
-                    this.currentMonth = value;
+                if (value == 0) {
+                    //通知父组件类型及时间更改
                     this.$emit('chileToParentSelectDate', {
                         type: 'month',
                         month: this.currentMonth,
                         year: this.monthSelectYear
+                    });
+                }
+                if (value == 1) {
+                    //通知父组件类型及时间更改
+                    this.$emit('chileToParentSelectDate', {
+                        type: 'year',
+                        year: this.currentYear,
+                    });
+                }
+                if (value == 2) {
+
+                }
+            },
+
+            /**
+             * 选择每个日期子元素
+             */
+            selectDateBtn(value, type) {
+                //选择月的按钮
+                if (type == 'month' && value <= this.serveDate.month) {
+                    //点击当前选择的月份，使其失效
+                    if (this.currentMonth == value) {
+                        return;
+                    }
+                    this.currentMonth = value;
+                    //通知父组件类型及时间更改
+                    this.$emit('chileToParentSelectDate', {
+                        type: 'month',
+                        month: this.currentMonth,
+                        year: this.monthSelectYear
+                    });
+                }
+                //选择年的按钮
+                if (type == 'year') {
+                    //点击当前选择的年份，使其失效
+                    if (this.currentYear == value) {
+                        return;
+                    }
+                    this.currentYear = value;
+                    //通知父组件类型及时间更改
+                    this.$emit('chileToParentSelectDate', {
+                        type: 'year',
+                        year: value,
                     });
                 }
             }
@@ -107,7 +163,17 @@
                 }
                 return arr;
             }
-        }
+        },
+        watch: {
+            //第一次进入的时候触发 -- 监听服务端返回最新的时间
+            serveDate(newVal, oldVal) {
+                //初始化选择月部分的账单
+                this.currentMonth = newVal.month;
+                this.monthSelectYear = newVal.year;
+                //初始化年部分的账单
+                this.currentYear = newVal.year;
+            }
+        },
     }
 </script>
 <style scoped>
@@ -198,14 +264,14 @@
         margin-top: .5rem;
     }
 
-    .month-day {
+    .date-list-area {
         display: flex;
         flex-wrap: wrap;
         flex: 1;
         justify-content: center;
     }
 
-    .month-day div {
+    .date-list-area .month-area {
         flex: 1 1 calc(1 / 6 * 100%);
         display: flex;
         justify-content: center;
@@ -214,7 +280,7 @@
         color: #ccc;
     }
 
-    .month-day div p {
+    .date-list-area .month-area p {
         display: inline-block;
         border-radius: 50%;
         width: .9rem;
@@ -225,6 +291,26 @@
 
     .month-day-p-seleced {
         background: #2f2f5b;
+        color: #fff;
+    }
+
+    .date-list-area .year-area {
+        flex: 1 1 calc(1 / 6 * 100%);
+        display: flex;
+        justify-content: center;
+        margin-top: .4rem;
+        font-size: .4rem;
+        color: #000;
+    }
+
+    .date-list-area .year-area p {
+        display: inline-block;
+        height: .7rem;
+        line-height: .7rem;
+        text-align: center;
+    }
+
+    .year-p-seleced {
         color: #fff;
     }
 

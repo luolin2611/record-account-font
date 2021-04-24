@@ -1,7 +1,8 @@
 <template>
     <div class="record-day-item">
-        <div>
+        <div class="day-title-container">
             <p>{{dayItem.dateStr}}</p>
+            <p>本日消费：{{dayItem.dayExpense.toFixed(2)}} 元</p>
         </div>
         <div class="record-item" v-for="(item, index) in dayItem.dayRecordAccountObjects" :key="index">
             <i :class="'iconfont icon-'+item.icon.iconName" :style="item.classifyType == 1 ? 'color: #4eab7f' : ''"></i>
@@ -32,6 +33,11 @@
         font-size: .35rem;
         overflow: hidden;
         margin-top: .3rem;
+    }
+    .day-title-container {
+        display: flex;
+        justify-content: space-between;
+        padding-right: .3rem;
     }
     .record-item {
         display: flex;
