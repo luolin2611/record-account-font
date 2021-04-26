@@ -39,7 +39,8 @@
         <div class="content-area">
             <template v-if="reportInfoList.length">
                 <statistics-item v-for="(item, index) in reportInfoList" :statistics="item"
-                    :statColor="selectExpenseIncome == 'expense' ? expenseColor[index%4] : incomeColor[index%4]" :selectExpenseIncome="selectExpenseIncome">
+                    :statColor="selectExpenseIncome == 'expense' ? expenseColor[index%4] : incomeColor[index%4]"
+                    :selectExpenseIncome="selectExpenseIncome" @enterReportItemDetailsListener="enterReportItemDetails">
                 </statistics-item>
             </template>
             <template v-else>
@@ -182,6 +183,30 @@
                 }
             },
 
+            /**
+             * 进入报表详情
+             */
+            enterReportItemDetails(statistics) {
+                let user = this.getUser || null;
+                let param = {
+                    userId: user.userId,
+                    type: this.selectExpenseIncome == 'expense' ? '0' : '1', //消费类型
+                    reportType: this.reportType,
+                    year: this.year,
+                    month: this.year + '' + (this.month < 10 ? '0' + this.month : this.month), //eg: 202103
+                    classifyId: statistics.classifyId,
+                    orderBy: 'money'
+                }
+
+                this.$router.push({
+                    name: 'reportItemDetails',
+                    query: {
+                        classifyName: statistics.classifyName,
+                        recordCount: statistics.recordCount,
+                        param: param
+                    }
+                });
+            },
         },
         created() {
             this.querySysTime();

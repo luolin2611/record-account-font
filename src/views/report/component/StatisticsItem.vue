@@ -1,6 +1,7 @@
 <template>
     <div class="statistics-container">
-        <i class="left-icon-style" :class="'iconfont icon-'+statistics.iconName" :style="selectExpenseIncome == 'expense' ? '' : 'color: #4eab7f'"></i>
+        <i class="left-icon-style" :class="'iconfont icon-'+statistics.iconName"
+            :style="selectExpenseIncome == 'expense' ? '' : 'color: #4eab7f'"></i>
         <div class="content-area">
             <div class="progress-bar">
                 <p>{{statistics.classifyName}} {{(parseFloat(statistics.proportion) * 100).toFixed(0)}}%</p>
@@ -12,11 +13,13 @@
                         :style="'flex: calc(100 - ' + (parseFloat(statistics.proportion) * 100).toFixed(0) + ')'"></div>
                 </div>
             </div>
-            <div class="bill-content">
-                <p class="money" :style="selectExpenseIncome == 'expense' ? '' : 'color: #4eab7f'">￥{{statistics.money}}</p>
+            <div class="bill-content"
+                @click="enterReportItemDetails(statistics)">
+                <p class="money" :style="selectExpenseIncome == 'expense' ? '' : 'color: #4eab7f'">￥{{statistics.money}}
+                </p>
                 <p class="per">{{statistics.recordCount}} 笔</p>
             </div>
-            <i class="iconfont btn-right"></i>
+            <i class="iconfont btn-right" @click="enterReportItemDetails(statistics)"></i>
         </div>
     </div>
 </template>
@@ -42,6 +45,11 @@
 
             };
         },
+        methods: {
+            enterReportItemDetails(statistics) {
+                this.$emit('enterReportItemDetailsListener', statistics);
+            }
+        }
     }
 </script>
 <style scoped>

@@ -1,3 +1,8 @@
+<!--
+ * @descritption: 修改记账内容
+ * @author: rollin
+ * @date: 2021-04-26 16:48:03
+-->
 <template>
     <div class="record">
         <div class="header">
@@ -13,7 +18,7 @@
         <div class="content">
             <div class="input-money" @click="showNumKeyboardMethod(true)">
                 <p>账单金额</p>
-                <p class="money-text" :style="selectSort == 'income' ? 'color:#ed7773' : 'color:#4eab7f' ">￥ {{money}}
+                <p class="money-text" :style="selectSort == 'income' ? 'color:#ed7773' : 'color:#4eab7f' ">￥ {{recordItem.billMoney}}
                 </p>
             </div>
             <div style="width: 100%; background: #f8f8f8; height: 6px;margin-top: .5rem;"></div>
@@ -32,8 +37,10 @@
             @keyboardHideEvent="showNumKeyboard = false" :money="money" />
         <!-- 底部按钮部分 -->
         <div class="bottom-btns" v-if="!showNumKeyboard">
-            <p class="record-again-btn" @click="recordAcctBtn('again')">再记一笔</p>
-            <p class="save-btn" @click="recordAcctBtn('save')">保存</p>
+            <p class="record-again-btn">删除</p>
+            <p class="save-btn">保存</p>
+            <!-- <p class="record-again-btn" @click="recordAcctBtn('again')">删除</p>
+            <p class="save-btn" @click="recordAcctBtn('save')">保存</p> -->
         </div>
 
 
@@ -43,16 +50,12 @@
     </div>
 </template>
 <script>
-    /**
-     * 记账弹出框
-     * @author rollin
-     * @date 2021-02-06 10:10:36
-    */
     import MoneyKeyboard from '@/components/MoneyKeyboard.vue'
-    import ShowSort from './ShowSort.vue'
+    import ShowSort from '@/views/home/component/ShowSort.vue'
     import { mapGetters } from 'vuex'
     import { querySysTime, addRecordAcct } from '@/api/api'
     import { Toast, Calendar } from 'vant'
+    import { Format } from '@/utils/Utils';
     export default {
         name: 'Record',
         components: {
@@ -60,17 +63,23 @@
             ShowSort,
             VanCalendar: Calendar,
         },
+        props: {
+            recordItem: {
+                type: String,
+                default: {}
+            }
+        },
         data() {
             return {
                 selectSort: 'income', //选中的类别
                 money: '0',//输入的money
-                remark: '',//输入备注
+                remark: this.recordItem.remark,//输入备注
                 showNumKeyboard: true, //默认显示数字键盘
                 showDate: false, //显示选择日期
                 minDate: new Date(),
                 maxDate: new Date(),
                 serverDate: {},//存放系统时间
-                showSelectDate: '', //存放显示时间字符串  ‘今天’、‘3月18’
+                showSelectDate: Format(this.recordItem.recordTime, 'MM月dd日'), //存放显示时间字符串  ‘今天’、‘3月18’
                 selectDateObj: new Date(),//选择时间对象
                 selectClassify: {},
             }
@@ -212,6 +221,9 @@
                 } else {
                     return value
                 }
+            },
+            formatDate(timeStr) {
+                return Format(timeStr, 'MM月dd日');
             }
         },
         computed: {

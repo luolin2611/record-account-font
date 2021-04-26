@@ -80,7 +80,9 @@ export const queryMonthIncomeExpenseList = param => requestMethod('queryMonthInc
  * @param {*} param 
  * @returns 
  */
- export const queryReportInfo = param => requestMethod('queryReportInfo', prefix + '/report/queryReportInfo', param);
+export const queryReportInfo = param => requestMethod('queryReportInfo', prefix + '/report/queryReportInfo', param);
+// 请求详情列表
+export const queryReportDetailsList = param => requestMethod('queryReportDetailsList', prefix + '/report/queryReportDetailsList', param);
 
 
 

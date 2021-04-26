@@ -6,6 +6,7 @@ import ShowRecentThreeBill from '../views/home/component/ShowRecentThreeBill.vue
 import Bill from '../views/bill/Bill.vue'
 
 import Report from '../views/report/Report.vue'
+import ReportItemDetails from '../views/report/component/ReportItemDetails.vue'
 
 import My from '../views/my/My.vue'
 import Login from '../views/my/login/Login.vue'
@@ -23,11 +24,22 @@ const routes = [
     name: 'bill',
     component: Bill
   },
+
+
+  // 报表路由配置
   {
     path: '/report',
     name: 'report',
     component: Report
   },
+  {
+    path: '/reportItemDetails',
+    name: 'reportItemDetails',
+    component: ReportItemDetails
+  },
+
+
+
   {
     path: '/my',
     name: 'my',
