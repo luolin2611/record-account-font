@@ -35,19 +35,21 @@
 
         <!-- 显示内容区 -->
         <div style="margin-top: .3rem; margin-left: .3rem;padding-bottom: 3rem;">
-            <template v-if="monthBillDetailList.length">
-                <record-day-item v-for="(item, index) in monthBillDetailList" :key="index" :dayItem="item">
-                </record-day-item>
-            </template>
-            <template v-else-if="yearBillDetailList.length">
-                <year-item v-for="(item, index) in yearBillDetailList" :key="index" :yearItem="item"></year-item>
-            </template>
-            <template v-else>
-                <div class="bill-no-data">
-                    <img src="@/assets/img/bill_no_data.png" />
-                    <p>每一笔账单，都是生活的点滴</p>
-                </div>
-            </template>
+            <van-list v-model="isLoading" @load="onLoad">
+                <template v-if="monthBillDetailList.length">
+                    <record-day-item v-for="(item, index) in monthBillDetailList" :key="index" :dayItem="item">
+                    </record-day-item>
+                </template>
+                <template v-else-if="yearBillDetailList.length">
+                    <year-item v-for="(item, index) in yearBillDetailList" :key="index" :yearItem="item"></year-item>
+                </template>
+                <template v-else>
+                    <div class="bill-no-data">
+                        <img src="@/assets/img/bill_no_data.png" />
+                        <p>每一笔账单，都是生活的点滴</p>
+                    </div>
+                </template>
+            </van-list>
         </div>
 
 
@@ -63,7 +65,7 @@
     import { mapGetters } from 'vuex'
     import { querySysTime, queryBillInfo, queryMonthIncomeExpenseList } from '@/api/api'
     import YearItem from './components/YearItem.vue'
-    import { Toast } from 'vant'
+    import { Toast, List, Cell } from 'vant'
     export default {
         name: 'Bill',
         components: {
@@ -72,6 +74,8 @@
             RecordDayItem,
             BillCharts,
             YearItem,
+            VanList: List,
+            VanCell: Cell
         },
         data() {
             return {
@@ -85,7 +89,10 @@
                 expense: 0, //支出
                 income: 0, //收入
                 echartsDataList: [],
-                serveDate: {}
+                serveDate: {},
+                isLoading: false,
+                startPage: 1, //当前页面
+                pageSize: 20, //数据大小
             }
         },
         methods: {
@@ -143,10 +150,12 @@
                         billType: this.billType,
                         year: this.year,
                         month: this.year + '' + (this.month < 10 ? '0' + this.month : this.month), //eg: 202103
-                        startPage: 1,
-                        pageSize: 50,
+                        startPage: this.startPage,
+                        pageSize: this.pageSize,
                         ...param
                     }).then(res => {
+                        //关闭加载框
+                        this.isLoading = false;
                         if (res) {
                             if (res.code == '0000') {
                                 let body = res.body;
@@ -159,6 +168,12 @@
                                 }
                                 if (type == '1') {
                                     //填充月账单
+                                    // let monthBillDetailList = body.monthBillDetailList || [];
+                                    // if (monthBillDetailList.length = this.pageSize) {
+                                    //     // 说明请求的数据大小满足，或许有下一页 当前的startPage + 1
+                                    //     this.startPage += 1;
+                                    // }
+                                    // this.monthBillDetailList.push(monthBillDetailList);
                                     this.monthBillDetailList = body.monthBillDetailList || [];
                                 }
                                 if (type == '2') {
@@ -231,6 +246,10 @@
                 }
             },
 
+            //请求下一页
+            onLoad() {
+                // this.billInfoList();
+            }
         },
         created() {
             this.querySysTime();

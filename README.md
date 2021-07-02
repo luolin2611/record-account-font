@@ -77,3 +77,34 @@ moment -- 参考地址（https://www.jianshu.com/p/c26d6215b6c6）
 查看服务状态：$ nginx.exe -t
 ```
 
+### UI 展示
+
+#### 1.登录注册
+
+<div style="background: #4eab7f; width: 100%; text-align: center;padding:10px 0px;">
+	<img src="src/extra/w1.png" alt="登录" style="zoom:80%;padding:0px 5px;" />
+  <img src="src/extra/w6.png" alt="注册" style="zoom:80%;padding:0px 5px;" />
+</div>
+
+#### 2.首页
+<div style="background: #4eab7f; width: 100%; text-align: center;padding:10px 0px;">
+	<img src="src/extra/w7.png" alt="首页 - 无数据" style="zoom:80%;padding:0px 5px;" />
+	<img src="src/extra/w2.png" alt="首页" style="zoom:80%;padding:0px 5px;" />
+</div>
+
+#### 3.账单
+<div style="background: #4eab7f; width: 100%; text-align: center;padding:10px 0px;">
+	<img src="src/extra/w8.png" alt="账单 - 无数据" style="zoom:80%;padding:0px 5px;" />
+	<img src="src/extra/w3.png" alt="账单" style="zoom:80%;padding:0px 5px;" />
+</div>
+
+#### 4.报表
+<div style="background: #4eab7f; width: 100%; text-align: center;padding:10px 0px;">
+	<img src="src/extra/w9.png" alt="报表 - 无数据" style="zoom:80%;padding:0px 5px;" />
+	<img src="src/extra/w4.png" alt="报表" style="zoom:80%;padding:0px 5px;" />
+</div>
+
+#### 5.我的
+<div style="background: #4eab7f; width: 100%; text-align: center;padding:10px 0px;">
+	<img src="src/extra/w5.png" alt="我的" style="zoom:80%;padding:0px 5px;" />
+</div>
