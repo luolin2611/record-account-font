@@ -22,6 +22,10 @@
                 <i class="iconfont btn-right"></i>
             </div>
             <div>
+                <p>我的理财</p>
+                <i class="iconfont btn-right"></i>
+            </div>
+            <div>
                 <p>Bug反馈</p>
                 <i class="iconfont btn-right"></i>
             </div>

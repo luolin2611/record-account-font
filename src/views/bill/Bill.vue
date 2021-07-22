@@ -1,6 +1,7 @@
 <template>
     <div class="main">
-        <bill-header :title="'账单'" @chileToParentSelectDate="selectDate" :serveDate="serveDate"></bill-header>
+        <bill-header :title="'账单'" @chileToParentSelectDate="selectDate" :serveDate="serveDate">
+        </bill-header>
 
         <!-- 1.图表区域 -->
         <div style="display: flex;justify-content: center;width: 100%;">
@@ -34,8 +35,9 @@
         </div>
 
         <!-- 显示内容区 -->
-        <div style="margin-top: .3rem; margin-left: .3rem;padding-bottom: 3rem;">
-            <van-list v-model="isLoading" @load="onLoad">
+        <div style="margin-top: .3rem; margin-left: .3rem;padding-bottom: 1.3rem;">
+            <van-list v-model="isLoading" @load="onLoad" :finished="isFinished" :immediate-check="false"
+                finished-text="别想了，没数据了">
                 <template v-if="monthBillDetailList.length">
                     <record-day-item v-for="(item, index) in monthBillDetailList" :key="index" :dayItem="item">
                     </record-day-item>
@@ -91,6 +93,7 @@
                 echartsDataList: [],
                 serveDate: {},
                 isLoading: false,
+                isFinished: false,
                 startPage: 1, //当前页面
                 pageSize: 20, //数据大小
             }
@@ -141,9 +144,6 @@
             billInfoList(param) {
                 let user = this.getUser || null;
                 if (user) {
-                    //请求前先清空数据
-                    this.yearBillDetailList = [];
-                    this.monthBillDetailList = [];
                     // 用户已经登录，查询首页信息
                     queryBillInfo({
                         userId: user.userId,
@@ -154,8 +154,6 @@
                         pageSize: this.pageSize,
                         ...param
                     }).then(res => {
-                        //关闭加载框
-                        this.isLoading = false;
                         if (res) {
                             if (res.code == '0000') {
                                 let body = res.body;
@@ -168,13 +166,14 @@
                                 }
                                 if (type == '1') {
                                     //填充月账单
-                                    // let monthBillDetailList = body.monthBillDetailList || [];
-                                    // if (monthBillDetailList.length = this.pageSize) {
-                                    //     // 说明请求的数据大小满足，或许有下一页 当前的startPage + 1
-                                    //     this.startPage += 1;
-                                    // }
-                                    // this.monthBillDetailList.push(monthBillDetailList);
-                                    this.monthBillDetailList = body.monthBillDetailList || [];
+                                    let monthBillDetailList = body.monthBillDetailList || [];
+                                    if (body.total == this.pageSize) {
+                                        // 说明请求的数据大小满足，或许有下一页 当前的startPage + 1
+                                        this.startPage += 1;
+                                    } else {
+                                        this.isFinished = true;
+                                    }
+                                    this.monthBillDetailList.push.apply(this.monthBillDetailList, monthBillDetailList);
                                 }
                                 if (type == '2') {
                                     //填充自定义账单
@@ -183,6 +182,8 @@
                                 Toast(res.msg);
                             }
                         }
+                        //关闭加载框
+                        this.isLoading = false;
                     });
                 }
             },
@@ -191,20 +192,21 @@
              * 子组件返回的日期
              */
             selectDate(obj) {
+                if (obj.type == 'month' && this.year == obj.year && this.month == obj.month) {
+                    return
+                }
+                if (obj.type == 'year' && this.year == obj.year) {
+                    return
+                }
+                this.resetStatus();
                 // 选择的是月账单
                 if (obj.type == 'month') {
                     this.year = obj.year;
                     this.month = obj.month;
                     this.billType = '1';
-                    //时间变更了重新请求账单信息
-                    this.queryMonthIncomeExpenseList({
-                        getCache: false,
-                        setCache: true
-                    });
-                    this.billInfoList({
-                        getCache: false,
-                        setCache: true
-                    });
+                    // 时间变更了重新请求账单信息
+                    this.queryMonthIncomeExpenseList();
+                    this.billInfoList();
                 }
                 // 选择的是年账单
                 if (obj.type == 'year') {
@@ -246,9 +248,21 @@
                 }
             },
 
-            //请求下一页
+            /**
+             * 上拉加载 
+             */
             onLoad() {
-                // this.billInfoList();
+                this.billInfoList({ showLoading: false })
+            },
+
+            /**
+             * 当选则时间（年、月）或者选择收入支出的时候需要还原最初的状态
+             */
+            resetStatus() {
+                this.monthBillDetailList = [];
+                this.yearBillDetailList = [];
+                this.startPage = 1;
+                this.isFinished = false;
             }
         },
         created() {

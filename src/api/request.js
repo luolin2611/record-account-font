@@ -20,7 +20,7 @@ axios.interceptors.request.use(function (config) {
     config.headers.common.Authorization = user.jwtToken;
   }
 
-  //是否显示加载框 （默认不显示）
+  //是否显示加载框 （默认显示）
   config.data.showLoading && (toast = Toast.loading({
     duration: 0, // 持续展示 toast
     forbidClick: true,

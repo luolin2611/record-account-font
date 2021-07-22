@@ -128,7 +128,7 @@ const requestMethod = (methodName, url, param) => {
     //时间 2021-04-01 16:17:12 暂时废弃缓存机制，因为存在许多bug
     param.setCache = false;
     param.getCache = false;
-    param.showLoading = true;
+    param.showLoading = param.showLoading == undefined ? true : param.showLoading;
     /******************************************************** */
     /******************************************************** */
 
