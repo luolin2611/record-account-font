@@ -63,6 +63,13 @@ export const queryBillInfo = param => requestMethod('queryBillInfo', prefix + '/
  * @returns 
  */
 export const queryMonthIncomeExpenseList = param => requestMethod('queryMonthIncomeExpenseList', prefix + '/bill/queryMonthIncomeExpenseList', param);
+/**
+ *  查询 月支出/月收入 列表
+ * 
+ * @param {*} param 
+ * @returns 
+ */
+export const queryYearBrokeLineList = param => requestMethod('queryYearBrokeLineList', prefix + '/bill/queryYearBrokeLineList', param);
 
 
 

@@ -6,19 +6,20 @@
         </div>
         <div class="item">
             <p>收入</p>
-            <p style="color: #4eab7f;">￥{{yearItem.expense}}</p>
+            <p style="color: #4eab7f;">￥{{yearItem.income}}</p>
         </div>
         <div class="item">
             <p>支出</p>
-            <p style="color: #ed7c71;">￥{{yearItem.income}}</p>
+            <p style="color: #ed7c71;">￥{{yearItem.expense}}</p>
         </div>
         <div class="item">
             <p>结余</p>
-            <p>￥{{yearItem.income - yearItem.expense}}</p>
+            <p>￥{{yearItem.income - yearItem.expense | toFixedTwoDecimals}}</p>
         </div>
     </div>
 </template>
 <script>
+    import { toFixedTwoDecimals } from '../../../utils/Utils.js'
     export default {
         name: 'YearItem',
         props: {
@@ -26,6 +27,9 @@
                 type: Object,
                 default: () => ({})
             }
+        },
+        filters: {
+            toFixedTwoDecimals
         }
     }
 </script>
@@ -39,10 +43,11 @@
         padding-bottom: .2rem;
         border-bottom: 1px solid #e5e5e5;
     }
+
     .year-container .item {
         display: flex;
         flex-direction: column;
         align-items: center;
         flex: 1;
-    } 
+    }
 </style>

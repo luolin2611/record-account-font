@@ -8,30 +8,38 @@
             <div class="charts-area">
                 <div class="income-extends-area">
                     <div @click="selectExpenseIncomeBtn('expense')">
-                        <i class="iconfont"
+                        <i v-if="billType === '1'" class="iconfont"
                             :class="selectExpenseIncome == 'expense' ? 'icon-selected-radio' : 'icon-unselected-radio'"
                             :style="selectExpenseIncome == 'expense' ? 'color:#ed7773' : ''"></i>
+                        <i v-if="billType === '0'" class="iconfont icon-selected-radio"
+                            style="color:#ed7773; font-size: .3rem;"></i>
                         <p>{{this.billType == '0' ? '年' : this.billType == '1' ? '月' : '总'}}支出</p>
                         <p style="color: #ed7773; font-weight: 700;">￥{{expense}}</p>
                     </div>
                     <div @click="selectExpenseIncomeBtn('income')">
-                        <i class="iconfont"
+                        <i v-if="billType === '1'" class="iconfont"
                             :class="selectExpenseIncome == 'income' ? 'icon-selected-radio' : 'icon-unselected-radio'"
                             :style="selectExpenseIncome == 'income' ? 'color:#4eab7f' : ''"></i>
+                        <i v-if="billType === '0'" class="iconfont icon-selected-radio"
+                            style="color:#4eab7f; font-size: .3rem;"></i>
                         <p>{{this.billType == '0' ? '年' : this.billType == '1' ? '月' : '总'}}收入</p>
                         <p style="color: #4eab7f; font-weight: 700;">￥{{income}}</p>
                     </div>
                 </div>
                 <div style="width: 100%;box-shadow: -5px 5px 10px -4px #dfdfdf, 5px 5px 10px -4px #dfdfdf;">
-                    <!-- 显示插图 -->
-                    <bill-charts style="height: 6rem; width: 100%;" :list="echartsDataList"
+                    <!-- 显示月账单柱状图图 -->
+                    <bill-charts v-if="billType === '1'" style="height: 6rem; width: 100%;" :list="echartsDataList"
                         :selectExpenseIncome="selectExpenseIncome"></bill-charts>
+                    <!-- 显示年账单折线图 -->
+                    <year-broke-line v-if="billType === '0'" style="height: 6rem; width: 100%;"
+                        :list="yearBrokenLineList" :selectExpenseIncome="selectExpenseIncome"></year-broke-line>
                 </div>
             </div>
         </div>
 
         <div class="bill-type-desc">
             <p class="bill-type-title">{{this.billType == '0' ? '年度' : this.billType == '1' ? '月度' : ''}}账单明细</p>
+            <p v-if="billType === '0'" class="per">共结余：{{totalSurplus}} 元</p>
         </div>
 
         <!-- 显示内容区 -->
@@ -64,8 +72,9 @@
     import BillHeader from '@/components/Header.vue'
     import RecordDayItem from '@/components/RecordDayItem.vue'
     import BillCharts from './components/BillCharts.vue'
+    import YearBrokeLine from './components/YearBrokeLine.vue'
     import { mapGetters } from 'vuex'
-    import { querySysTime, queryBillInfo, queryMonthIncomeExpenseList } from '@/api/api'
+    import { querySysTime, queryBillInfo, queryMonthIncomeExpenseList, queryYearBrokeLineList } from '@/api/api'
     import YearItem from './components/YearItem.vue'
     import { Toast, List, Cell } from 'vant'
     export default {
@@ -75,6 +84,7 @@
             BillHeader,
             RecordDayItem,
             BillCharts,
+            YearBrokeLine,
             YearItem,
             VanList: List,
             VanCell: Cell
@@ -96,11 +106,21 @@
                 isFinished: false,
                 startPage: 1, //当前页面
                 pageSize: 20, //数据大小
+                // 共结余
+                totalSurplus: 0,
+                yearBrokenLineList: {
+                    incomeList: [20000, 20000, 20000, 25000, 20000, 20000, 20000, 20000, 23000, 20000, 20000, 20000],
+                    expenseList: [4000, 3800, 3300, 4100, 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000]
+                }
             }
         },
         methods: {
             //选择收支按钮
             selectExpenseIncomeBtn(value) {
+                if (this.billType === '0') {
+                    // 年账单不需要点击事件
+                    return;
+                }
                 if (this.selectExpenseIncome == value) {
                     return;
                 }
@@ -163,9 +183,13 @@
                                 if (type == '0') {
                                     //填充年账单
                                     this.yearBillDetailList = body.yearBillDetail.yearBillDetailObjectList || [];
+                                    this.totalSurplus = body.yearBillDetail.totalSurplus || [];
+                                    this.isFinished = true;
+                                    this.startPage = 1;
                                 }
                                 if (type == '1') {
                                     //填充月账单
+                                    this.totalSurplus = 0;
                                     let monthBillDetailList = body.monthBillDetailList || [];
                                     if (body.total == this.pageSize) {
                                         // 说明请求的数据大小满足，或许有下一页 当前的startPage + 1
@@ -211,21 +235,15 @@
                 // 选择的是年账单
                 if (obj.type == 'year') {
                     this.year = obj.year;
-                    this.reportType = '0';
+                    this.billType = '0';
                     //时间变更了重新请求账单信息
-                    this.queryMonthIncomeExpenseList({
-                        getCache: false,
-                        setCache: true
-                    });
-                    this.billInfoList({
-                        getCache: false,
-                        setCache: true
-                    });
+                    this.queryYearBrokeLineList();
+                    this.billInfoList();
                 }
             },
 
             /**
-             * 查询月收入月支出列表
+             * 查询月收入月支出列表 (柱状图)
              */
             queryMonthIncomeExpenseList(parmas) {
                 let user = this.getUser || null;
@@ -240,6 +258,27 @@
                             if (res.code == '0000') {
                                 let body = res.body;
                                 this.echartsDataList = body.list;
+                            } else {
+                                Toast(res.msg);
+                            }
+                        }
+                    });
+                }
+            },
+
+            /**
+             * 查询年账单折线图数据
+             */
+            queryYearBrokeLineList(parmas) {
+                let user = this.getUser || null;
+                if (user) {
+                    queryYearBrokeLineList({
+                        year: this.year,
+                        ...parmas
+                    }).then(res => {
+                        if (res) {
+                            if (res.code == '0000') {
+                                this.yearBrokenLineList = res.body || { incomeList: [], expenseList: [] };
                             } else {
                                 Toast(res.msg);
                             }
@@ -304,9 +343,17 @@
 
     .bill-type-desc {
         display: flex;
+        align-items: center;
+        justify-content: space-between;
         font-size: .4rem;
         margin-top: .3rem;
         margin-left: .3rem;
+    }
+
+    .bill-type-desc .per {
+        color: #aeb1b6;
+        font-size: .35rem;
+        margin-right: .8rem;
     }
 
     .bill-no-data {
