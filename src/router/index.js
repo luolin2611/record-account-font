@@ -13,12 +13,19 @@ import Login from '../views/my/login/Login.vue'
 import Register from '../views/my/register/Register.vue'
 Vue.use(Router)
 const routes = [
-  //底部tabbar
+  //首页路由配置
   {
     path: '/home',
     name: 'home',
     component: Home,
   },
+  {
+    path: '/home/show-recent',
+    name: 'show-recent',
+    component: ShowRecentThreeBill
+  },
+
+
   {
     path: '/bill',
     name: 'bill',
@@ -45,12 +52,7 @@ const routes = [
     name: 'my',
     component: My
   },
-  //首页路由配置
-  {
-    path: '/home/show-recent',
-    name: 'show-recent',
-    component: ShowRecentThreeBill
-  },
+
 
 
 

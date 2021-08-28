@@ -174,7 +174,7 @@ const requestMethod = (methodName, url, param) => {
         //2.根据表示判断是否需要存储本次请求 （默认为true）
         let setCache = param.setCache == undefined ? true : param.setCache;
         return axios.post(url, { ...param }).then(res => {
-            if (res.code == '0000' && setCache) {
+            if (res && res.code == '0000' && setCache) {
                 //请求服务成功，根据标志进行缓存请求，并更新缓存状态为false.
                 localStorage.setItem(localStorageId, JSON.stringify(res));
                 let updateObj = JSON.parse(localStorage.getItem("updateObj")) || {};

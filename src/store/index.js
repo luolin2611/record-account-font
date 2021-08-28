@@ -3,13 +3,9 @@ import vuex from 'vuex'
 Vue.use(vuex)
 export default new vuex.Store({
   state: {
-    showLoading: false,
     user: null,
   },
   getters: {
-    getShowLoading (state) {
-      return state.showLoading
-    },
     getUser(state) {
       let user = null;
       if(state.user) {
@@ -22,9 +18,6 @@ export default new vuex.Store({
     }
   },
   mutations: {
-    setShowLoading (state, load) {
-      state.showLoading = load
-    },
     setUser(state, user) {
       if(user) {
         localStorage.setItem('user', JSON.stringify(user));

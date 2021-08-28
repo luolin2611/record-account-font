@@ -6,16 +6,5 @@
         <component :is="Component" />
       </keep-alive>
     </router-view>
-    <!-- 加载框 -->
-    <loading></loading>
   </div>
 </template>
-<script>
-  import Loading from '@/components/Loading.vue'
-  export default {
-    name: 'App',
-    components: {
-      Loading
-    }
-  }
-</script>

@@ -1,3 +1,4 @@
+import { Toast } from "vant";
 
 /**
  * 定义Format方法  dateTime--后台传输过来的Date类型  fmt--你要转换的格式
@@ -41,6 +42,37 @@ let toFixedTwoDecimals = (vaule) => {
     return vaule.toFixed(2);
 }
 
+/**
+ * 显示加载框
+ * 
+ * @param {*} msg 提示消息
+ * @param {*} duration 持续时间
+ * @param {*} options 自定义optons
+ * @returns 
+ */
+function showLoading(msg = '加载中...', options) {
+    let opts = {
+        duration: 0,
+        forbidClick: true,
+        message: msg,
+        ...options
+    }
+    return Toast.loading(opts)
+}
+
+/**
+ * 关闭toast
+ * 
+ * @param {Toast} toast 吐司对象
+ */
+function closeLoading(toast = null) {
+    if (toast != null) {
+        toast.clear();
+    }
+}
+
 export {
-    toFixedTwoDecimals
+    toFixedTwoDecimals,
+    showLoading,
+    closeLoading
 }
