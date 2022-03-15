@@ -3,7 +3,6 @@ import store from '@/store'
 import { Toast } from 'vant';
 import { closeLoading, showLoading } from '../utils/Utils';
 
-// axios.defaults.baseURL = 'http://localhost:8080';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 
@@ -43,8 +42,13 @@ axios.interceptors.response.use(response => {
     case 200:
       let data = response && response.data;
       if (data && data.code === '0000') {
+        // 业务返回0000
         return data
+      } else if (data instanceof Blob) {
+        // 下载文件
+        return response
       } else {
+        // 业务返回其它错误码
         Toast(data.msg)
       }
       break
@@ -60,7 +64,6 @@ axios.interceptors.response.use(response => {
   }
 }, error => {
   closeLoading(toast)
-  console.log(error)
 })
 
 

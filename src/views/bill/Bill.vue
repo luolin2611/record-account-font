@@ -62,7 +62,6 @@
             </van-list>
         </div>
 
-
         <!-- 底部tabbar 部分 -->
         <tab-bar :selectIndex="1"></tab-bar>
     </div>
@@ -216,12 +215,6 @@
              * 子组件返回的日期
              */
             selectDate(obj) {
-                if (obj.type == 'month' && this.year == obj.year && this.month == obj.month) {
-                    return
-                }
-                if (obj.type == 'year' && this.year == obj.year) {
-                    return
-                }
                 this.resetStatus();
                 // 选择的是月账单
                 if (obj.type == 'month') {

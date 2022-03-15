@@ -8,7 +8,7 @@
         <div class="conditions">
             <!-- 左侧时间选择 -->
             <div class="time" v-if="selectSortBtn == 0" @click="showTimePicker">
-                <p class="year">2021年</p>
+                <p class="year">{{currentYear}}年</p>
                 <i class="iconfont arrows-down"></i>
                 <div class="split-line"></div>
                 <p>{{currentMonth}} 月</p>
@@ -35,7 +35,7 @@
                     :class="{'selected-button': selectSortBtn == 2}">自定义</p>
             </div>
             <div class="show-date-area">
-                <i class="iconfont btn-back"></i>
+                <i v-show="selectSortBtn == '1'" class="iconfont btn-back"></i>
                 <div class="date-list-area">
                     <!-- 显示月账单选项 -->
                     <template v-if="selectSortBtn == '0'">
@@ -58,7 +58,7 @@
                         </div>
                     </template>
                 </div>
-                <i class="iconfont btn-right"></i>
+                <i v-show="selectSortBtn == '1'" class="iconfont btn-right"></i>
             </div>
         </div>
         <div class="mask" v-if="isShowTimePicker" @click="showTimePicker()"></div>
@@ -83,7 +83,7 @@
                 isShowTimePicker: false,
                 selectSortBtn: 0,//选中的button 0-月账单,1-年账单,2-自定义
                 monthArr: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],//十二个月数字
-                yearArr: [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021],
+                yearArr: [2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030, 2031, 2032],
                 currentMonth: 0,//当前选中的月份
                 monthSelectYear: 0, //当前选中月份所在的年份当中
                 currentYear: 0, //用户选择的当前年
@@ -100,7 +100,7 @@
                 }
                 this.selectSortBtn = value;
                 if (value == 0) {
-                    //通知父组件类型及时间更改
+                    // 通知父组件变更为月账单
                     this.$emit('chileToParentSelectDate', {
                         type: 'month',
                         month: this.currentMonth,
@@ -108,7 +108,7 @@
                     });
                 }
                 if (value == 1) {
-                    //通知父组件类型及时间更改
+                    // 通知父组件变更为年账单
                     this.$emit('chileToParentSelectDate', {
                         type: 'year',
                         year: this.currentYear,
@@ -221,7 +221,7 @@
     .select-model {
         background: #ffffff;
         width: 100%;
-        height: 5rem;
+        height: 4.3rem;
         padding: .3rem;
         margin-top: .1rem;
         position: fixed;
@@ -276,16 +276,16 @@
         display: flex;
         justify-content: center;
         margin-top: .5rem;
-        font-size: .5rem;
+        font-size: .4rem;
         color: #ccc;
     }
 
     .date-list-area .month-area p {
         display: inline-block;
         border-radius: 50%;
-        width: .9rem;
-        height: .9rem;
-        line-height: .9rem;
+        width: .6rem;
+        height: .6rem;
+        line-height: .6rem;
         text-align: center;
     }
 

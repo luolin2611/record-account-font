@@ -1,3 +1,6 @@
+<!-- 首页子组件 -> 账户信息 -->
+<!-- author rollin  -->
+<!-- date 2021-02-06 10:11:43  -->
 <template>
     <div class="main">
         <img src="../../../assets/img/R.png" />
@@ -13,17 +16,12 @@
             </div>
             <div>
                 <p>预算剩余</p>
-                <p class="money">{{showSecret ? budget : '******'}}</p>
+                <p class="money" @click="toBudget">{{showSecret ? budget : '******'}}</p>
             </div>
         </div>
     </div>
 </template>
 <script>
-    /*
-    * 首页子组件 --> 账户信息
-    * @author rollin
-    * @date 2021-02-06 10:11:43
-    */
     export default {
         name: 'AcctInfo',
         props: {
@@ -50,6 +48,9 @@
             changeShowSecret() {
                 this.showSecret = !this.showSecret;
                 this.eye = this.showSecret ? 'eye-open' : 'eye-close';
+            },
+            toBudget() {
+                this.$router.push('/home/budget')
             }
         }
     }

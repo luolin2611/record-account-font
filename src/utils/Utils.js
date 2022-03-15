@@ -71,8 +71,24 @@ function closeLoading(toast = null) {
     }
 }
 
+/**
+ * 清空对象
+ * 
+ * @param {object} 对象文件  
+ */
+function clearObj(object = null) {
+	if(!object) {
+		let keys = Reflect.ownKeys(object)
+		keys.forEach(key => {
+			object[key] = ''
+		})
+	}
+	return object
+}
+
 export {
     toFixedTwoDecimals,
     showLoading,
-    closeLoading
+    closeLoading,
+	clearObj
 }

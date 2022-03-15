@@ -40,7 +40,7 @@
         data() {
             return {
                 account: 'rollin',
-                password: 'luolin123'
+                password: '123456'
             }
         },
         methods: {

@@ -1,9 +1,12 @@
 <template>
     <div class="header-back">
-        <i class="iconfont btn-back" @click="$router.back()"></i>
-        <div>
-            <p>{{title}}</p>
+        <div class="title">
+            <i class="iconfont btn-back" @click="$router.back()"></i>
+            <div>
+                <p>{{title}}</p>
+            </div>
         </div>
+        <div style="background-color: rgb(173, 173, 177); height: 1px;margin-top: .2rem; margin-bottom: .2rem;"></div>
     </div>
 </template>
 <script>
@@ -20,16 +23,20 @@
 <style scoped>
     .header-back {
         display: flex;
-        line-height: 1rem;
+        flex-direction: column;
         font-size: .45rem;
-        padding: .2rem;
+        padding-top: .2rem;
     }
 
-    .header-back i {
+    .title {
+        display: flex;
+    }
+
+    .title i {
         font-size: .6rem;
     }
 
-    .header-back div {
+    .title div {
         display: flex;
         flex: 1;
         justify-content: center;

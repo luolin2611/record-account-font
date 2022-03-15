@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '../views/home/Home.vue'
 import ShowRecentThreeBill from '../views/home/component/ShowRecentThreeBill.vue'
+import Budget from '../views/home/budget/Budget.vue'
 
 import Bill from '../views/bill/Bill.vue'
 
@@ -11,9 +12,10 @@ import ReportItemDetails from '../views/report/component/ReportItemDetails.vue'
 import My from '../views/my/My.vue'
 import Login from '../views/my/login/Login.vue'
 import Register from '../views/my/register/Register.vue'
+import BillExport from '../views/my/billexport/BillExport.vue'
 Vue.use(Router)
 const routes = [
-  //首页路由配置
+  // 首页路由配置
   {
     path: '/home',
     name: 'home',
@@ -23,6 +25,11 @@ const routes = [
     path: '/home/show-recent',
     name: 'show-recent',
     component: ShowRecentThreeBill
+  },
+  {
+    path: '/home/budget',
+    name: 'budget',
+    component: Budget
   },
 
 
@@ -66,6 +73,11 @@ const routes = [
     path: '/register',
     name: 'register',
     component: Register
+  },
+  {
+    path: '/billexport',
+    name: 'billexport',
+    component: BillExport
   },
 
 

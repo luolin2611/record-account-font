@@ -1,13 +1,6 @@
 import axios from './request'
 
 
-
-//本地的时候放开
-let prefix = '';
-//发布的时候放开
-// let prefix = '/record-account';
-
-
 /*******  Home 页面  **** */
 /**
  * 用户已经登录，查询首页信息
@@ -15,21 +8,21 @@ let prefix = '';
  * @param {*} param 
  * @returns 
  */
-export const homeInitInfo = param => requestMethod('homeInitInfo', prefix + '/home/homeInitInfo', param);
+export const homeInitInfo = param => requestMethod('homeInitInfo', 'record-account/home/homeInitInfo', param);
 /**
  * 获取用户分类列表
  * 
  * @param {*} param 
  * @returns 
  */
-export const queryClassify = param => requestMethod('queryClassify', prefix + '/record/queryClassify', param);
+export const queryClassify = param => requestMethod('queryClassify', 'record-account/record/queryClassify', param);
 /**
  * 记账
  * 
  * @param {*} param 
  * @returns 
  */
-export const addRecordAcct = param => requestMethod('addRecordAcct', prefix + '/record/addRecordAcct', param);
+export const addRecordAcct = param => requestMethod('addRecordAcct', 'record-account/record/addRecordAcct', param);
 
 
 
@@ -48,28 +41,28 @@ export const addRecordAcct = param => requestMethod('addRecordAcct', prefix + '/
  * @param {*} param 
  * @returns 
  */
-export const querySysTime = param => requestMethod('querySysTime', prefix + '/bill/querySysTime', param);
+export const querySysTime = param => requestMethod('querySysTime', 'record-account/bill/querySysTime', param);
 /**
  *  获取账单首页顶部内容
  * 
  * @param {*} param 
  * @returns 
  */
-export const queryBillInfo = param => requestMethod('queryBillInfo', prefix + '/bill/queryBillInfo', param);
+export const queryBillInfo = param => requestMethod('queryBillInfo', 'record-account/bill/queryBillInfo', param);
 /**
  *  查询 月支出/月收入 列表
  * 
  * @param {*} param 
  * @returns 
  */
-export const queryMonthIncomeExpenseList = param => requestMethod('queryMonthIncomeExpenseList', prefix + '/bill/queryMonthIncomeExpenseList', param);
+export const queryMonthIncomeExpenseList = param => requestMethod('queryMonthIncomeExpenseList', 'record-account/bill/queryMonthIncomeExpenseList', param);
 /**
  *  查询 月支出/月收入 列表
  * 
  * @param {*} param 
  * @returns 
  */
-export const queryYearBrokeLineList = param => requestMethod('queryYearBrokeLineList', prefix + '/bill/queryYearBrokeLineList', param);
+export const queryYearBrokeLineList = param => requestMethod('queryYearBrokeLineList', 'record-account/bill/queryYearBrokeLineList', param);
 
 
 
@@ -87,9 +80,9 @@ export const queryYearBrokeLineList = param => requestMethod('queryYearBrokeLine
  * @param {*} param 
  * @returns 
  */
-export const queryReportInfo = param => requestMethod('queryReportInfo', prefix + '/report/queryReportInfo', param);
+export const queryReportInfo = param => requestMethod('queryReportInfo', 'record-account/report/queryReportInfo', param);
 // 请求详情列表
-export const queryReportDetailsList = param => requestMethod('queryReportDetailsList', prefix + '/report/queryReportDetailsList', param);
+export const queryReportDetailsList = param => requestMethod('queryReportDetailsList', 'record-account/report/queryReportDetailsList', param);
 
 
 
@@ -104,12 +97,12 @@ export const queryReportDetailsList = param => requestMethod('queryReportDetails
  * 请求登录
  * @param {} param 
  */
-export const login = param => axios.post(prefix + '/user/login', { ...param }).then(res => res);
+export const login = param => axios.post('record-account/user/login', { ...param }).then(res => res);
 /**
  * 注册
  * @param {} param 
  */
-export const register = param => axios.post(prefix + '/user/register', { ...param }).then(res => res);
+export const register = param => axios.post('record-account/user/register', { ...param }).then(res => res);
 
 
 
@@ -138,7 +131,6 @@ const requestMethod = (methodName, url, param) => {
     param.showLoading = param.showLoading == undefined ? true : param.showLoading;
     /******************************************************** */
     /******************************************************** */
-
 
 
 

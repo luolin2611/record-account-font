@@ -179,6 +179,22 @@ plugins: [["transform-es2015-arrow-functions", { spec: true }]]
 
 
 
+#### 3.清空一个对象
+
+```js
+function clearObj(object = null) {
+	if(!object) {
+		let keys = Reflect.ownKeys(object)
+		keys.forEach(key => {
+			object[key] = ''
+		})
+	}
+	return object
+}
+```
+
+
+
 
 
 
