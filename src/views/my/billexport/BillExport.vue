@@ -89,10 +89,10 @@
 
 <script>
 import HeaderBack from "@/components/HeaderBack.vue";
-import { clearObj } from "../../../utils/Utils.js";
-import { exportBill } from "@/api/api";
+import { clearObj, closeLoading, showLoading } from "../../../utils/Utils.js";
 import { mapGetters } from "vuex";
 import axios from "axios";
+import { Toast } from "vant";
 
 export default {
   name: "BillExport",
@@ -164,8 +164,10 @@ export default {
       this.$refs["exportForm"].validate((valid) => {
         if (valid) {
           let user = this.getUser || null;
+          let toast = null;
           if (user) {
             // 用户已经登录，导出账单信息
+            // toast = showLoading();
             axios({
               method: "post",
               url: "record-account/bill/billExport",
@@ -176,6 +178,7 @@ export default {
               responseType: "blob",
             })
               .then((response) => {
+                // closeLoading(toast);
                 if (!response) {
                   return;
                 }
@@ -192,7 +195,8 @@ export default {
                 window.URL.revokeObjectURL(url);
               })
               .catch((error) => {
-                console.log(error);
+                closeLoading(toast);
+                Toast("导出文件失败，请重试");
               });
           }
         } else {
