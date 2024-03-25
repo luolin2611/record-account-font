@@ -1,7 +1,7 @@
 <template>
 	<div class="my-container">
 		<div class="head-img">
-			<img src="../../assets/img/head_img.png" />
+			<img src="../../assets/img/head_image.png" />
 			<div>
 				<p class="title">{{getUser && getUser.realName || ''}}</p>
 				<p class="subtitle">{{getUser && getUser.personalResume || ''}}</p>

@@ -125,6 +125,7 @@
 
     .record-button i {
         padding-right: 3px;
+        font-size: .4rem;
     }
 
     .rechent-add .title {
@@ -140,16 +141,17 @@
 
     .no-date {
         display: flex;
-        margin: .3rem;
+        margin: .2rem;
         margin-top: .8rem;
-        font-size: .5rem;
+        font-size: .45rem;
         color: #8c8f97;
         line-height: 1rem;
         text-align: center;
+        justify-content: center;
     }
 
     .no-date i {
-        font-size: .8rem;
-        padding-right: .5rem;
+        font-size: .6rem;
+        padding-right: .1rem;
     }
 </style>

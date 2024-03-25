@@ -255,7 +255,7 @@
 
     .header i {
         margin-left: .2rem;
-        font-size: .6rem;
+        font-size: .4rem;
         padding: 0 .2rem;
     }
 

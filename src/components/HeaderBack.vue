@@ -30,10 +30,11 @@
 
     .title {
         display: flex;
+        margin-left: .1rem;
     }
 
     .title i {
-        font-size: .6rem;
+        font-size: .5rem;
     }
 
     .title div {

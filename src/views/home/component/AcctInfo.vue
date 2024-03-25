@@ -84,9 +84,17 @@
     }
 
     .expense i {
-        font-size: .8rem;
         color: #bfc0ca;
         padding: 0 .1rem;
+        margin-right: .2rem;
+    }
+
+    .eye-open {
+        font-size: .45rem;
+    }
+    
+    .eye-close {
+        font-size: .3rem;
     }
 
     .income {

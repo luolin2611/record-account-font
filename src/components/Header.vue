@@ -209,6 +209,7 @@
 
     .time i {
         padding: 0 .1rem;
+        font-size: .15rem;
     }
 
     .split-line {

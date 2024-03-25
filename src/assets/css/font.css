@@ -3,7 +3,7 @@
   @author rollin
   @date 2021-02-08 09:13:21
 */
-@font-face {
+/* @font-face {
   font-family: 'iconfont';
   src: url('./icon/iconfont.eot');
   src: url('./icon/iconfont.eot?#iefix') format('embedded-opentype'),
@@ -11,6 +11,13 @@
     url('./icon/iconfont.woff') format('woff'),
     url('./icon/iconfont.ttf') format('truetype'),
     url('./icon/iconfont.svg#iconfont') format('svg');
+} */
+
+@font-face {
+  font-family: 'iconfont';
+  src: url('./icon/iconfont.woff2?t=1649635547705') format('woff2'),
+       url('./icon/iconfont.woff?t=1649635547705') format('woff'),
+       url('./icon/iconfont.ttf?t=1649635547705') format('truetype');
 }
 
 /* @font-face {
@@ -23,6 +30,14 @@
     url('//at.alicdn.com/t/font_2365037_sl5pfxda6q9.svg#iconfont') format('svg');
   } */
 
+/* .iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+} */
+
 .iconfont {
   font-family: "iconfont" !important;
   font-size: 16px;
@@ -33,56 +48,56 @@
 
 /* tab 图标 */
 .home:before {
-  content: "\e600";
+  content: "\e67d";
 }
 
 .bill:before {
-  content: "\e616";
+  content: "\e674";
 }
 
 .report:before {
-  content: "\e601";
+  content: "\e695";
 }
 
 .user:before {
-  content: "\e66b";
+  content: "\e6a2";
 }
 
 /*  其它场景图标 */
 .eye-close:before {
-  content: "\e66c";
+  content: "\e680";
 }
 
 .eye-open:before {
-  content: "\e66d";
+  content: "\e677";
 }
 
 .btn-edit:before {
-  content: "\e603";
+  content: "\e673";
 }
 
 .btn-right:before {
-  content: "\e604";
+  content: "\e6a6";
 }
 
 .btn-close:before {
-  content: "\e87f";
+  content: "\e67b";
 }
 
 .btn-calendar:before {
-  content: "\e698";
+  content: "\e678";
 }
 
 .btn-huishan:before {
-  content: "\e74b";
+  content: "\e67c";
 }
 
 .btn-renminbi:before {
-  content: "\e60a";
+  content: "\e676";
 }
 
 .btn-back:before {
-  content: "\e602";
+  content: "\e679";
 }
 
 .arrows-up:before {
@@ -90,159 +105,159 @@
 }
 
 .arrows-down:before {
-  content: "\e60c";
+  content: "\e672";
 }
 
 .filter:before {
-  content: "\e64d";
+  content: "\e68e";
 }
 
 .icon-selected-radio:before {
-  content: "\ee65";
+  content: "\e68b";
 }
 
 .icon-unselected-radio:before {
-  content: "\eecd";
+  content: "\e686";
 }
 
 .icon-user:before {
-  content: '\e605';
+  content: '\e692';
 }
 
 .icon-password:before {
-  content: '\e606';
+  content: '\e69b';
 }
 
 
 /*  分类图标 */
 /* 1.支出图标 */
 .icon-canyin:before {
-  content: "\e610";
+  content: "\e689";
 }
 
 .icon-yanjiulingshi:before {
-  content: "\e614";
+  content: "\e694";
 }
 
 .icon-gouwu:before {
-  content: "\e612";
+  content: "\e67f";
 }
 
 .icon-zhufang:before {
-  content: "\e615";
+  content: "\e69e";
 }
 
 .icon-jiaotong:before {
-  content: "\e611";
+  content: "\e690";
 }
 
 .icon-yule:before {
-  content: "\e617";
+  content: "\e693";
 }
 
 .icon-wenjiao:before {
-  content: "\e613";
+  content: "\e69f";
 }
 
 .icon-qiche:before {
-  content: "\e619";
+  content: "\e687";
 }
 
 .icon-tongxun:before {
-  content: "\e61a";
+  content: "\e69d";
 }
 
 .icon-yuer:before {
-  content: "\e618";
+  content: "\e6a5";
 }
 
 .icon-renqing:before {
-  content: "\e61b";
+  content: "\e685";
 }
 
 .icon-yiliao:before {
-  content: "\e61c";
+  content: "\e68a";
 }
 
 .icon-lvxing:before {
-  content: "\e61d";
+  content: "\e691";
 }
 
 .icon-touzi:before {
-  content: "\e61e";
+  content: "\e681";
 }
 
 .icon-touzikuisun:before {
-  content: "\e61f";
+  content: "\e68c";
 }
 
 .icon-jiechu:before {
-  content: "\e636";
+  content: "\e69a";
 }
 
 .icon-huanzhai:before {
-  content: "\e635";
+  content: "\e67a";
 }
 
 .icon-lixizhichu:before {
-  content: "\e620";
+  content: "\e6a1";
 }
 
 .icon-qita:before {
-  content: "\e621";
+  content: "\e697";
 }
 
 .icon-shezhi-zhichu:before {
-  content: "\e622";
+  content: "\e6a3";
 }
 
 /* 2.收入图标 */
 .icon-xinzi:before {
-  content: "\e623";
+  content: "\e698";
 }
 
 .icon-jiangjin:before {
-  content: "\e626";
+  content: "\e682";
 }
 
 .icon-jieru:before {
-  content: "\e627";
+  content: "\e688";
 }
 
 .icon-shouzhai:before {
-  content: "\e628";
+  content: "\e699";
 }
 
 .icon-lixishouru:before {
-  content: "\e62a";
+  content: "\e68f";
 }
 
 .icon-touzihuishou:before {
-  content: "\e629";
+  content: "\e67e";
 }
 
 .icon-touzishouyi:before {
-  content: "\e62e";
+  content: "\e696";
 }
 
 .icon-baoxiaoshouru:before {
-  content: "\e62d";
+  content: "\e683";
 }
 
 .icon-tuikuan:before {
-  content: "\e632";
+  content: "\e6a0";
 }
 
 .icon-yiwaisuode:before {
-  content: "\e62b";
+  content: "\e68d";
 }
 
 .icon-qitashouru:before {
-  content: "\e630";
+  content: "\e69c";
 }
 
 .icon-shezhi-shouru:before {
-  content: "\e622";
+  content: "\e6a3";
 }
 
 

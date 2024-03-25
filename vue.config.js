@@ -19,8 +19,9 @@ module.exports = {
     // 配置多个代理，相当于Nginx配置
     proxy: {
       "/": {
-        target: 'http://192.168.1.134', // 访问本地Linux服务器
-        // target: 'http://127.0.0.1:9008', // 本地url
+        // target: 'http://121.4.105.24', // 访问本地Linux服务器
+        // target: 'http://192.168.1.134', // 访问本地Linux服务器
+        target: 'http://127.0.0.1:9008', // 本地url
         ws: true, // 是否启用websockets
         changeOrigin: true, //开启代理：在本地会创建一个虚拟服务端，然后发送请求的数据，并同时接收请求的数据，这样服务端和服务端进行数据的交互就不会有跨域问题
       }
@@ -31,6 +32,6 @@ module.exports = {
   chainWebpack(config) {
         // 在chainWebpack中添加下面的代码
         config.entry('main').add('babel-polyfill') // main是入口js文件
-  }  
+  }
 
 }

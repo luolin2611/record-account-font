@@ -4,9 +4,9 @@
             <i class="iconfont btn-close" @click="hideModel()"></i>
             <div class="header-button">
                 <p @click="sortBtn('income')" :class="{'selected-button': 'income' === selectSort}"
-                    style="border-radius: .2rem 0 0 .2rem;">流入</p>
+                    style="border-radius: .2rem 0 0 .2rem;">流出</p>
                 <p @click="sortBtn('expense')" :class="{'selected-button': 'expense' === selectSort}"
-                    style="border-radius: 0 .2rem .2rem 0;">流出</p>
+                    style="border-radius: 0 .2rem .2rem 0;">流入</p>
             </div>
         </div>
 
@@ -243,7 +243,7 @@
 
     .header i {
         margin-left: .2rem;
-        font-size: .6rem;
+        font-size: .4rem;
         padding: 0 .2rem;
     }
 

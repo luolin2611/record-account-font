@@ -39,8 +39,8 @@
         name: 'Login',
         data() {
             return {
-                account: 'rollin',
-                password: '123456'
+                account: 'admin',
+                password: 'admin123'
             }
         },
         methods: {
